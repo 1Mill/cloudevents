@@ -1,18 +1,32 @@
 const { KAFKA_EVENTTYPE } = require('../lib/constants');
 const { Kafka } = require('kafkajs');
+const { toEventType } = require('./toEventType');
 
-const publish = async ({ event, eventType, id, publishTo }) => {
-	// TODO: Abstract to support more event types (e.g. rabbmitmq)
-	if (eventType !== KAFKA_EVENTTYPE) { throw Error('invalid event type'); }
-
+const _publishToKafka = async({ broker, cloudevent }) => {
+	const { id, urls } = broker;
 	const kafka = new Kafka({
-		brokers: publishTo,
+		brokers: urls,
 		clientId: id,
 	});
 	const { connect, disconnect, send } = kafka.producer();
 	await connect();
-	await send(event);
+	const kafkaEvent = toEventType({
+		cloudevent,
+		eventType: KAFKA_EVENTTYPE,
+	});
+	await send(kafkaEvent);
 	await disconnect();
+};
+
+const publish = async({ broker, cloudevent }) => {
+	try {
+		const { eventType } = broker;
+		if (eventType === KAFKA_EVENTTYPE) {
+			await _publishToKafka({ broker, cloudevent });
+		}
+	} catch (err) {
+		console.error(err);
+	}
 };
 
 module.exports = { publish };
