@@ -1,6 +1,7 @@
 const create = ({
 	data = null,
 	datacontenttype = 'application/json',
+	dlx = undefined,
 	enrichment = undefined,
 	enrichmentcontenttype = undefined,
 	id,
@@ -11,6 +12,7 @@ const create = ({
 	const cloudevent = {
 		data: JSON.stringify(data),
 		datacontenttype,
+		dlx,
 		enrichment,
 		enrichmentcontenttype,
 		id,

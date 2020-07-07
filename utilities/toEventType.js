@@ -11,7 +11,7 @@ const toEventType = ({ cloudevent, eventType }) => {
 	};
 	const kafkaEvent = {
 		messages: [message],
-		topic: cloudevent.type,
+		topic: cloudevent.dlx || cloudevent.type,
 	};
 	return kafkaEvent;
 };
