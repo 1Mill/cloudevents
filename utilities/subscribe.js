@@ -1,83 +1,62 @@
-const { ERROR_TYPES, KAFKA_EVENTTYPE, SIGNAL_TRAPS } = require('../lib/constants');
+const { ERROR_TYPES, SIGNAL_TRAPS } = require('../lib/constants');
 const { Kafka } = require('kafkajs');
 const { enrich } = require('./enrich');
 const { fromEventType } = require('./fromEventType');
 const { isEnriched } = require('./isEnriched');
 const { publish } = require('./publish');
-const { toEventType } = require('./toEventType');
 
-const subscribe = async ({
-	handler,
-	id,
-	publishEventType,
-	publishTo,
-	subscribeEventType,
-	subscribeTo,
-	types,
-}) => {
-	// TODO: Support other event types (e.g. rabbitmq)
-	if (subscribeEventType !== KAFKA_EVENTTYPE) {
-		throw Error('Invalid event type');
-	}
-
-	const kakfa = new Kafka({
-		brokers: subscribeTo,
+const subscribe = async({ broker, handler, publishBroker, types = [] }) => {
+	const { id, eventType, urls } = broker;
+	const kafka = new Kafka({
+		brokers: urls,
 		clientId: id,
 	});
-	const {
-		connect,
-		disconnect,
-		run,
-		subscribe,
-	} = kakfa.consumer({ groupId: id });
-
-	const main = async () => {
+	const { connect, disconnect, run, subscribe } = kafka.consumer({ groupId: id });
+	try {
 		await connect();
-		// ? Can we parallelize ?
-		await types.forEach(async (type) => {
-			await subscribe({ topic: type, fromBeginning: true });
+		await types.forEach(async({ type }) => {
+			await subscribe({ fromBeginning: true, topic: type });
 		});
 		await run({
-			eachMessage: async (event) => {
-				// Normal flow
-				const cloudevent = fromEventType({
-					event,
-					eventType: subscribeEventType,
-				});
-				// ? Should just pass in {...cloudevent} with
-				// ? Other properties ?
-				const enrichment = await handler({
-					...cloudevent,
-					cloudevent,
-					data: JSON.parse(cloudevent.data),
-					enrichment: isEnriched({ cloudevent })
-						? JSON.parse(cloudevent.enrichment)
-						: undefined,
-					isEnriched: isEnriched({ cloudevent }),
-				});
+			eachMessage: async(kafkaEvent) => {
+				try {
+					// Parse cloudevent
+					const cloudevent = fromEventType({
+						event: kafkaEvent,
+						eventType,
+					});
 
-				// If enrichment value is returned, enrich
-				// cloudevent and publish it. Otherwise,
-				// do nothing.
-				if (enrichment === undefined) { return; }
-				const enrichedCloudevent = enrich({
-					cloudevent,
-					enrichment,
-				});
-				await publish({
-					publishTo,
-					event: toEventType({
+					// Enrich cloudevent for return
+					const enrichment = await handler({
+						...cloudevent,
+						cloudevent,
+						data: JSON.parse(cloudevent.data),
+						enrichment: isEnriched({ cloudevent })
+							? JSON.parse(cloudevent.enrichment)
+							: undefined,
+						isEnriched: isEnriched({ cloudevent }),
+					});
+
+					// If enriched, publish
+					if (enrichment === undefined) { return; }
+					const enrichedCloudevent = enrich({
+						cloudevent,
+						enrichment,
+					});
+					await publish({
+						broker: publishBroker || broker,
 						cloudevent: enrichedCloudevent,
-						eventType: publishEventType,
-					}),
-					eventType: publishEventType,
-					id,
-				});
+					});
+				} catch (err) {
+					console.log(err);
+				}
 			},
 		});
-	};
-	main().catch((err) => console.error(err));
+	} catch (err) {
+		console.log(err);
+	}
 
+	// Before server stop, close subscription connections to kafka
 	ERROR_TYPES.map((errorType) => {
 		process.on(errorType, async (err) => {
 			try {
