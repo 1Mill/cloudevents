@@ -1,9 +1,9 @@
 const create = ({
 	data = null,
-	datacontenttype = "application/json",
+	datacontenttype = 'application/json',
 	id,
 	source,
-	specversion = "1.0",
+	specversion = '1.0',
 	type,
 }) => {
 	const cloudevent = {

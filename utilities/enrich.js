@@ -1,7 +1,7 @@
 const enrich = ({
 	cloudevent,
 	enrichment,
-	enrichmentcontenttype = "application/json",
+	enrichmentcontenttype = 'application/json',
 }) => {
 	return {
 		...cloudevent,

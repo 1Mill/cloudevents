@@ -17,7 +17,7 @@ const subscribe = async ({
 }) => {
 	// TODO: Support other event types (e.g. rabbitmq)
 	if (subscribeEventType !== KAFKA_EVENTTYPE) {
-		throw Error("Invalid event type");
+		throw Error('Invalid event type');
 	}
 
 	const kakfa = new Kafka({

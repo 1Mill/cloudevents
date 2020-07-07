@@ -5,7 +5,7 @@ const toEventType = ({ cloudevent, eventType }) => {
 	if (eventType !== KAFKA_EVENTTYPE) { throw new Error('eventType not supported'); }
 	const message = {
 		headers: {
-			contentType: "application/cloudevents+json;charset=UTF-8"
+			contentType: 'application/cloudevents+json;charset=UTF-8'
 		},
 		value: JSON.stringify(cloudevent),
 	};
