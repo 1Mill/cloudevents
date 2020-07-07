@@ -8,6 +8,10 @@
   },
   "author": "@1mill",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/1mill/cloudevents.git"
+  },
   "dependencies": {
     "kafkajs": "^1.12.0"
   }
