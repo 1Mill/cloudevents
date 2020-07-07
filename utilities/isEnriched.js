@@ -1,7 +1,5 @@
-const ENRICHMENT_PROPERTY = 'enrichment';
-
 const isEnriched = ({ cloudevent }) => {
-	return cloudevent.hasOwnProperty(ENRICHMENT_PROPERTY);
+	return cloudevent && cloudevent.enrichment !== undefined;
 };
 
 module.exports = { isEnriched };
