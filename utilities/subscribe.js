@@ -6,10 +6,22 @@ const { isEnriched } = require('./isEnriched');
 const { publish } = require('./publish');
 
 const subscribe = async({ broker, handler, publishBroker, types = [] }) => {
-	const { id, eventType, urls } = broker;
+	const {
+		eventType,
+		id,
+		password,
+		urls,
+		username,
+	} = broker;
 	const kafka = new Kafka({
 		brokers: urls,
 		clientId: id,
+		sasl: {
+			mechanism: 'plain',
+			password,
+			username,
+		},
+		ssl: password && username,
 	});
 	const { connect, disconnect, run, subscribe } = kafka.consumer({ groupId: id });
 	try {

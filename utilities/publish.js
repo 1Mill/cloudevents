@@ -3,10 +3,21 @@ const { Kafka } = require('kafkajs');
 const { toEventType } = require('./toEventType');
 
 const _publishToKafka = async({ broker, cloudevent }) => {
-	const { id, urls } = broker;
+	const {
+		id,
+		password,
+		urls,
+		username,
+	} = broker;
 	const kafka = new Kafka({
 		brokers: urls,
 		clientId: id,
+		sasl: {
+			mechanism: 'plain',
+			password,
+			username,
+		},
+		ssl: password && username,
 	});
 	const { connect, disconnect, send } = kafka.producer();
 	await connect();
