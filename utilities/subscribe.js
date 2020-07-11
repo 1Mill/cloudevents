@@ -13,16 +13,17 @@ const subscribe = async({ broker, handler, publishBroker, types = [] }) => {
 		urls,
 		username,
 	} = broker;
+
+	const ssl = password && username;
+	const sslConfig = ssl
+		? { ssl, sasl: { mechanism: 'plain', password, username } }
+		: {}
 	const kafka = new Kafka({
+		...sslConfig,
 		brokers: urls,
 		clientId: id,
-		sasl: {
-			mechanism: 'plain',
-			password,
-			username,
-		},
-		ssl: password && username,
 	});
+
 	const { connect, disconnect, run, subscribe } = kafka.consumer({ groupId: id });
 	try {
 		await connect();

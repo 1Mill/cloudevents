@@ -9,16 +9,17 @@ const _publishToKafka = async({ broker, cloudevent }) => {
 		urls,
 		username,
 	} = broker;
+
+	const ssl = password && username;
+	const sslConfig = ssl
+		? { ssl, sasl: { mechanism: 'plain', password, username } }
+		: {}
 	const kafka = new Kafka({
+		...sslConfig,
 		brokers: urls,
 		clientId: id,
-		sasl: {
-			mechanism: 'plain',
-			password,
-			username,
-		},
-		ssl: password && username,
 	});
+
 	const { connect, disconnect, send } = kafka.producer();
 	await connect();
 	const kafkaEvent = toEventType({
