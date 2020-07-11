@@ -7,6 +7,7 @@ const { publish } = require('./publish');
 
 const subscribe = async({ broker, handler, publishBroker, types = [] }) => {
 	const {
+		authentication,
 		eventType,
 		id,
 		password,
@@ -14,12 +15,8 @@ const subscribe = async({ broker, handler, publishBroker, types = [] }) => {
 		username,
 	} = broker;
 
-	const ssl = password && username;
-	const sslConfig = ssl
-		? { ssl, sasl: { mechanism: 'plain', password, username } }
-		: {}
 	const kafka = new Kafka({
-		...sslConfig,
+		...authentication,
 		brokers: urls,
 		clientId: id,
 	});

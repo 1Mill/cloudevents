@@ -4,18 +4,13 @@ const { toEventType } = require('./toEventType');
 
 const _publishToKafka = async({ broker, cloudevent }) => {
 	const {
+		authentication,
 		id,
-		password,
 		urls,
-		username,
 	} = broker;
 
-	const ssl = password && username;
-	const sslConfig = ssl
-		? { ssl, sasl: { mechanism: 'plain', password, username } }
-		: {}
 	const kafka = new Kafka({
-		...sslConfig,
+		...authentication,
 		brokers: urls,
 		clientId: id,
 	});
