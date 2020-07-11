@@ -1,5 +1,6 @@
 const { KAFKA_EVENTTYPE } = require('./lib/constants');
 const { create } = require('./utilities/create');
+const { createAuthentication } = require('./utilities/createAuthentication');
 const { createBroker } = require('./utilities/createBroker');
 const { enrich } = require('./utilities/enrich');
 const { fromEventType } = require('./utilities/fromEventType');
@@ -11,6 +12,7 @@ const { toEventType } = require('./utilities/toEventType');
 module.exports = Object.freeze({
 	KAFKA_EVENTTYPE,
 	create,
+	createAuthentication,
 	createBroker,
 	enrich,
 	fromEventType,
