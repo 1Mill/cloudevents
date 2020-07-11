@@ -10,9 +10,7 @@ const subscribe = async({ broker, handler, publishBroker, types = [] }) => {
 		authentication,
 		eventType,
 		id,
-		password,
 		urls,
-		username,
 	} = broker;
 
 	const kafka = new Kafka({

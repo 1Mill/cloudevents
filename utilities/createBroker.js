@@ -14,9 +14,7 @@ const createBroker = ({
 		authentication,
 		eventType,
 		id,
-		password,
 		urls,
-		username,
 	};
 };
 
