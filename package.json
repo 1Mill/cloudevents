@@ -4,7 +4,7 @@
   "description": "Node cloudevents specification and helper functions",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha **/*.test.js --recursive"
   },
   "author": "@1mill",
   "license": "ISC",
