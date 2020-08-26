@@ -1,7 +1,7 @@
 const { Kafka } = require('kafkajs')
 const { createAuthentication } = require('./createAuthentication')
 
-const emit = ({
+const createEmit = ({
 	id,
 	mechanism,
 	password,
@@ -18,6 +18,16 @@ const emit = ({
 		brokers: urls,
 		clientId: id,
 	})
+	const { connect, disconnect, send } = kafka.producer()
+
+	const emit = ({ cloudevent }) => {
+		await connect()
+		// TODO: Convert cloudevent to kafka-event
+		const event = { topic: 'TODO', messages: [] }
+		await send(event)
+		await disconnect()
+	}
+	return emit
 }
 
-module.exports = { emit }
+module.exports = { createEmit }
