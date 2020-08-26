@@ -33,7 +33,7 @@ const createListen = ({
 			}
 		})
 	}
-	return listen
+	return { listen }
 }
 
 module.exports = { createListen }
