@@ -1,5 +1,6 @@
-const { Kafka } = require('kafkajs');
-const { createAuthentication } = require('./createAuthentication');
+const { KAFKA_PROTOCAL } = require('../lib/constants')
+const { Kafka } = require('kafkajs')
+const { createAuthentication } = require('./createAuthentication')
 
 const eventStream = async ({
 	id,
@@ -10,7 +11,7 @@ const eventStream = async ({
 	username,
 }) => {
 	// TODO: Support more than just the kafka protocal
-	if (protocal !== 'kafka') { throw Error('Unsupported protocal type'); }
+	if (protocal !== KAFKA_PROTOCAL) { throw Error('Unsupported protocal type'); }
 
 	const authentication = createAuthentication({
 		mechanism,
