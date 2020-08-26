@@ -1,6 +1,5 @@
 const { KAFKA_PROTOCAL } = require('../lib/constants')
-const { Kafka } = require('kafkajs')
-const { createAuthentication } = require('./createAuthentication')
+const { createInstance } = require('./builders/kafka')
 
 const eventStream = ({
 	id,
@@ -11,34 +10,17 @@ const eventStream = ({
 	username,
 }) => {
 	// TODO: Support more than just the kafka protocal
-	if (protocal !== KAFKA_PROTOCAL) { throw Error('Unsupported protocal type'); }
+	if (protocal !== KAFKA_PROTOCAL) { throw Error('Unsupported protocal type') }
 
-	const authentication = createAuthentication({
+	const { emit, listen } = createInstance({
+		id,
 		mechanism,
 		password,
+		protocal,
+		urls,
 		username,
 	})
-	const kafka = new Kafka({
-		...authentication,
-		brokers: urls,
-		clientId: id,
-	})
-
-	const emit = _buildEmit({ kafka })
-	const listen = ({}) => { console.log('Listening') }
 	return { emit, listen }
-}
-
-const _buildEmit = ({ kafka }) => {
-	const { connect, disconnect, send } = kafka.producer()
-	const emit = ({ cloudevent }) => {
-		await connect()
-		// TODO: Cloudevent to kafka event
-		const kafkaEvent = { topic: 'TODO', messages: [] }
-		await send(kafkaEvent)
-		await disconnect()
-	}
-	return emit
 }
 
 module.exports = { eventStream }
