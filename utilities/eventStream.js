@@ -32,3 +32,5 @@ class EventStream {
 	async listen({ types, handler }) {
 	}
 }
+
+module.exports = { EventStream };
