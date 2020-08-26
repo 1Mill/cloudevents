@@ -9,6 +9,9 @@ const eventStream = async ({
 	urls,
 	username,
 }) => {
+	// TODO: Support more than just the kafka protocal
+	if (protocal !== 'kafka') { throw Error('Unsupported protocal type'); }
+
 	const authentication = createAuthentication({
 		mechanism,
 		password,
