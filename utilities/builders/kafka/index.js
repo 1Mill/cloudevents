@@ -1,4 +1,5 @@
 const { createEmit } = require('./createEmit')
+const { createListen } = require('./createListener')
 
 const createInstance = ({
 	id,
@@ -7,14 +8,21 @@ const createInstance = ({
 	urls,
 	username,
 }) => {
-	const emit = createEmit({
+	const { emit } = createEmit({
 		id,
 		mechanism,
 		password,
 		urls,
 		username,
 	})
-	return { emit }
+	const { listen } = createListen({
+		id,
+		mechanism,
+		password,
+		urls,
+		username,
+	});
+	return { emit, listen }
 }
 
 module.exports = { createInstance }

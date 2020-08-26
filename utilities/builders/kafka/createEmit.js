@@ -20,14 +20,14 @@ const createEmit = ({
 	})
 	const { connect, disconnect, send } = kafka.producer()
 
-	const emit = ({ cloudevent }) => {
+	const emit = async ({ cloudevent }) => {
 		await connect()
 		// TODO: Convert cloudevent to kafka-event
 		const event = { topic: 'TODO', messages: [] }
 		await send(event)
 		await disconnect()
 	}
-	return emit
+	return { emit }
 }
 
 module.exports = { createEmit }
