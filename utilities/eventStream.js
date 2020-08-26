@@ -24,18 +24,21 @@ const eventStream = ({
 		clientId: id,
 	})
 
-	const emit = _emit
+	const emit = _buildEmit({ kafka })
 	const listen = ({}) => { console.log('Listening') }
 	return { emit, listen }
 }
 
-const _emit = async ({ cloudevent, kafka }) => {
+const _buildEmit = ({ kafka }) => {
 	const { connect, disconnect, send } = kafka.producer()
-	await connect()
-	// TODO: Cloudevent to kafka event
-	const kafkaEvent = { topic: 'TODO', messages: [] }
-	await send(kafkaEvent)
-	await disconnect()
+	const emit = ({ cloudevent }) => {
+		await connect()
+		// TODO: Cloudevent to kafka event
+		const kafkaEvent = { topic: 'TODO', messages: [] }
+		await send(kafkaEvent)
+		await disconnect()
+	}
+	return emit
 }
 
 module.exports = { eventStream }
