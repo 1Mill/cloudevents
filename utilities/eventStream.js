@@ -12,7 +12,7 @@ class EventStream {
 			return {
 				sasl: {
 					password: this.password,
-					username: this.username
+					username: this.username,
 				},
 				ssl: true,
 			}
