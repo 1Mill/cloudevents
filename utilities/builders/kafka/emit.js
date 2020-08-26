@@ -1,5 +1,5 @@
 const { Kafka } = require('kafkajs')
-const { createAuthroization } = require('./createAuthorization')
+const { createAuthentication } = require('./createAuthentication')
 
 const emit = ({
 	id,
