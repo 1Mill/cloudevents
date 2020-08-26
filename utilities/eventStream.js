@@ -1,5 +1,8 @@
+const { Kafka } = require('kafkajs');
+
 class EventStream {
-	constructor({ mechanism, password, protocal, urls, username }) {
+	constructor({ id, mechanism, password, protocal, urls, username }) {
+		this.id = id
 		this.mechanism = mechanism
 		this.password = password
 		this.protocal = protocal
@@ -24,6 +27,14 @@ class EventStream {
 			}
 		}
 		return {}
+	}
+
+	_kafka() {
+		return new Kafka({
+			...this._authentication,
+			brokers: this.urls,
+			clientId: this.id,
+		})
 	}
 
 	async emit({ cloudevent }) {
