@@ -7,6 +7,25 @@ class EventStream {
 		this.username = username
 	}
 
+	_authentication() {
+		if (this.mechanism === 'sasl') {
+			return {
+				sasl: {
+					password: this.password,
+					username: this.username
+				},
+				ssl: true,
+			}
+		}
+		if (this.mechanism === 'ssl') {
+			return {
+				password: this.password,
+				username: this.username,
+			}
+		}
+		return {}
+	}
+
 	async emit({ cloudevent }) {
 	}
 
