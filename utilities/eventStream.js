@@ -2,7 +2,7 @@ const { KAFKA_PROTOCAL } = require('../lib/constants')
 const { Kafka } = require('kafkajs')
 const { createAuthentication } = require('./createAuthentication')
 
-const eventStream = async ({
+const eventStream = ({
 	id,
 	mechanism,
 	password,
@@ -24,9 +24,18 @@ const eventStream = async ({
 		clientId: id,
 	})
 
-	const emit = ({}) => { console.log('Emitting') }
+	const emit = _emit
 	const listen = ({}) => { console.log('Listening') }
 	return { emit, listen }
+}
+
+const _emit = async ({ cloudevent, kafka }) => {
+	const { connect, disconnect, send } = kafka.producer()
+	await connect()
+	// TODO: Cloudevent to kafka event
+	const kafkaEvent = { topic: 'TODO', messages: [] }
+	await send(kafkaEvent)
+	await disconnect()
 }
 
 module.exports = { eventStream }
