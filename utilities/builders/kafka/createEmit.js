@@ -1,4 +1,5 @@
 const { Kafka } = require('kafkajs')
+const { convertTo } = require('./converTo')
 const { createAuthentication } = require('./createAuthentication')
 
 const createEmit = ({
@@ -22,8 +23,7 @@ const createEmit = ({
 
 	const emit = async ({ cloudevent }) => {
 		await connect()
-		// TODO: Convert cloudevent to kafka-event
-		const event = { topic: 'TODO', messages: [] }
+		const { event } = convertTo({ cloudevent })
 		await send(event)
 		await disconnect()
 	}
