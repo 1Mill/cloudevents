@@ -7,9 +7,9 @@ class EventStream {
 		this.username = username
 	}
 
-	emit({ cloudevent }) {
+	async emit({ cloudevent }) {
 	}
 
-	listen({ types, handler }) {
+	async listen({ types, handler }) {
 	}
 }
