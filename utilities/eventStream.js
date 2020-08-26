@@ -5,7 +5,9 @@ const eventStream = async ({
 	urls,
 	username,
 }) => {
-	console.log('testing');
+	const emit = ({}) => { console.log('Emitting') }
+	const listen = ({}) => { console.log('Listening') }
+	return { emit, listen }
 }
 
 module.exports = { eventStream }
