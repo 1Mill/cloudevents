@@ -1,5 +1,5 @@
 const { createEmit } = require('./createEmit')
-const { createListen } = require('./createListener')
+const { createListen } = require('./createListen')
 
 const createInstance = ({
 	id,
