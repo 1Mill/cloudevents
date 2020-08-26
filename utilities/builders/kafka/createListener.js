@@ -1,3 +1,4 @@
+const { ERROR_TYPES, SIGNAL_TRAPS } = require('../../../lib/constants')
 const { Kafka } = require('kafkajs')
 const { createAuthentication } = require('./createAuthentication')
 
@@ -31,6 +32,29 @@ const createListen = ({
 				const cloudevent = {}
 				await hanlder({ cloudevent })
 			}
+		})
+
+		// Before server stop, close subscription connections to kafka
+		ERROR_TYPES.map(errorType => {
+			process.on(errorType, async (err) => {
+				try {
+					console.log(`process.on ${errorType}`);
+					console.error(err);
+					await disconnect();
+					process.exit(0);
+				} catch (_err) {
+					process.exit(1);
+				}
+			})
+		})
+		SIGNAL_TRAPS.map(signalTrap => {
+			process.once(signalTrap, async () => {
+				try {
+					await disconnect();
+				} finally {
+					process.kill(process.pid, signalTrap);
+				}
+			})
 		})
 	}
 	return { listen }
