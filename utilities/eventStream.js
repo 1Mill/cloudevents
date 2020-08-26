@@ -2,7 +2,6 @@ const eventStream = async ({
 	mechanism,
 	password,
 	protocal,
-	protocal,
 	urls,
 	username,
 }) => {
