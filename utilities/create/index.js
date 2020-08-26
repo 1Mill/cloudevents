@@ -1,7 +1,7 @@
 const create = ({
 	data = null,
 	datacontenttype = 'application/json',
-	dlx = undefined,
+	dlx = 'dlx',
 	enrichment = undefined,
 	enrichmentcontenttype = undefined,
 	id,
