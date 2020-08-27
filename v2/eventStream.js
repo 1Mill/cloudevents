@@ -1,5 +1,5 @@
 const { KAFKA_PROTOCAL } = require('../lib/constants')
-const { createInstance } = require('./builders/kafka')
+const { createInstance } = require('./kafka')
 
 const eventStream = ({
 	id,

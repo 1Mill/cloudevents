@@ -1,7 +1,7 @@
-const create = ({
+const createCloudevent = ({
 	data = null,
 	datacontenttype = 'application/json',
-	dlx = undefined,
+	dlx = 'dlx',
 	enrichment = undefined,
 	enrichmentcontenttype = undefined,
 	id,
@@ -24,4 +24,4 @@ const create = ({
 	return cloudevent;
 };
 
-module.exports = { create };
+module.exports = { createCloudevent };
