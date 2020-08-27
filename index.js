@@ -8,6 +8,7 @@ const { isEnriched } = require('./utilities/isEnriched');
 const { publish } = require('./utilities/publish');
 const { subscribe } = require('./utilities/subscribe');
 const { toEventType } = require('./utilities/toEventType');
+const { v2 } = require('./v2')
 
 module.exports = Object.freeze({
 	KAFKA_EVENTTYPE,
@@ -20,4 +21,5 @@ module.exports = Object.freeze({
 	publish,
 	subscribe,
 	toEventType,
+	v2,
 });
