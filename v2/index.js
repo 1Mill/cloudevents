@@ -1,6 +1,6 @@
 const { createCloudevent } = require('./createCloudevent')
-const { eventStream } = require('./eventStream')
+const { createEventStream } = require('./eventStream')
 
-const v2 = { createCloudevent, eventStream }
+const v2 = { createCloudevent, createEventStream }
 
 module.exports = { v2 }

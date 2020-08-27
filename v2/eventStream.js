@@ -1,7 +1,7 @@
 const { KAFKA_PROTOCAL } = require('../lib/constants')
 const { createInstance } = require('./kafka')
 
-const eventStream = ({
+const createEventStream = ({
 	id,
 	mechanism,
 	password,
@@ -23,4 +23,4 @@ const eventStream = ({
 	return { emit, listen }
 }
 
-module.exports = { eventStream }
+module.exports = { createEventStream }
