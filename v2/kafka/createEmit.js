@@ -1,5 +1,5 @@
 const { Kafka } = require('kafkajs')
-const { convertTo } = require('./converTo')
+const { convertTo } = require('./convertTo')
 const { createAuthentication } = require('./createAuthentication')
 
 const createEmit = ({

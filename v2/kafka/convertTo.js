@@ -1,4 +1,4 @@
-const converTo = ({ cloudevent }) => {
+const convertTo = ({ cloudevent }) => {
 	const message = {
 		headers: {
 			contentType: 'application/cloudevents+json;charset=UTF-8'
@@ -9,4 +9,4 @@ const converTo = ({ cloudevent }) => {
 	return { event }
 }
 
-module.exports = { converTo }
+module.exports = { convertTo }
