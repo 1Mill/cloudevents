@@ -22,7 +22,7 @@ const createListen = ({
 	})
 
 	const { connect, disconnect, run, subscribe } = kafka.consumer({ groupId: id })
-	const listen = async ({ hanlder, types }) => {
+	const listen = async ({ handler, types }) => {
 		await connect()
 		await types.forEach(async (type) => {
 			await subscribe({ fromBeginning: true, topic: type })
@@ -30,7 +30,7 @@ const createListen = ({
 		await run({
 			eachMessage: async(event) => {
 				const { cloudevent } = convertFrom({ event })
-				await hanlder({ cloudevent })
+				await handler({ cloudevent })
 			}
 		})
 
