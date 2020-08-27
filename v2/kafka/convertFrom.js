@@ -1,5 +1,5 @@
 const convertFrom = ({ event }) => {
-	const cloudevent = JSON.parse(event.message.event)
+	const cloudevent = JSON.parse(event.message.value)
 	return { cloudevent }
 }
 
