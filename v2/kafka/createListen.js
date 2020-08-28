@@ -1,8 +1,8 @@
 const { ERROR_TYPES, SIGNAL_TRAPS } = require('../../lib/constants')
 const { Kafka } = require('kafkajs')
 const { convertFrom } = require('./convertFrom')
-const { createAuthentication } = require('./createAuthentication');
-const { isCloudeventEnriched } = require('../isCloudeventEnriched');
+const { createAuthentication } = require('./createAuthentication')
+const { isEnriched } = require('../isEnriched')
 
 const createListen = ({
 	id,
@@ -34,8 +34,8 @@ const createListen = ({
 				await handler({
 					...cloudevent,
 					cloudevent,
-					isEnriched: isCloudeventEnriched({ cloudevent }),
-				})
+					isEnriched: isEnriched({ cloudevent }),
+				});
 			}
 		})
 
