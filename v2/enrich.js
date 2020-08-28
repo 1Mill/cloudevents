@@ -1,4 +1,4 @@
-const enrichCloudevent = ({
+const enrich = ({
 	cloudevent,
 	enrichment = null,
 	enrichmentcontenttype = 'application/json',
@@ -11,4 +11,4 @@ const enrichCloudevent = ({
 	}
 }
 
-module.exports = { enrichCloudevent }
+module.exports = { enrich }

@@ -1,13 +1,13 @@
 const { createCloudevent } = require('./createCloudevent')
-const { createEventStream } = require('./eventStream')
-const { enrichCloudevent } = require('./enrichCloudevent')
-const { isCloudeventEnriched } = require('./isCloudeventEnriched')
+const { createEventStream } = require('./createEventStream')
+const { enrich } = require('./enrich')
+const { isEnriched } = require("./isEnriched");
 
 const v2 = {
 	createCloudevent,
 	createEventStream,
-	enrichCloudevent,
-	isCloudeventEnriched,
+	enrich,
+	isEnriched,
 }
 
 module.exports = { v2 }
