@@ -5,18 +5,16 @@ const createEventStream = ({
 	id,
 	mechanism,
 	password,
-	protocal,
+	protocol,
 	urls,
 	username,
 }) => {
 	// TODO: Support more than just the kafka protocal
-	if (protocal !== KAFKA_PROTOCAL) { throw Error('Unsupported protocal type') }
-
+	if (protocol !== KAFKA_PROTOCAL) { throw Error('Unsupported protocal type') }
 	const { emit, listen } = createInstance({
 		id,
 		mechanism,
 		password,
-		protocal,
 		urls,
 		username,
 	})
