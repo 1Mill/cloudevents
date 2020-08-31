@@ -1,7 +1,7 @@
 const { createCloudevent } = require('./createCloudevent')
 const { createEventStream } = require('./createEventStream')
 const { enrich } = require('./enrich')
-const { isEnriched } = require("./isEnriched");
+const { isEnriched } = require('./isEnriched')
 
 const v2 = {
 	createCloudevent,
