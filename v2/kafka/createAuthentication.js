@@ -6,6 +6,7 @@ const createAuthentication = ({ mechanism, password, username }) => {
 			ssl: true,
 		}
 	}
+
 	return {}
 }
 
