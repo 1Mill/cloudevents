@@ -1,15 +1,12 @@
 // Client Configuration for KafkaJS: https://kafka.js.org/docs/configuration
 const createAuthentication = ({ mechanism, password, username }) => {
-	if (mechanism === 'sasl') {
+	if (mechanism == 'scram-sha-256') {
 		return {
 			sasl: { password, username },
 			ssl: true,
-		};
+		}
 	}
-	if (mechanism === 'ssl') {
-		return { password, username };
-	}
-	return {};
-};
+	return {}
+}
 
-module.exports = { createAuthentication };
+module.exports = { createAuthentication }
