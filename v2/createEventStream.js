@@ -1,4 +1,4 @@
-const { KAFKA_PROTOCAL } = require('../lib/constants')
+const { KAFKA_PROTOCAL } = require('./lib/constants')
 const { createInstance } = require('./kafka')
 
 const createEventStream = ({
