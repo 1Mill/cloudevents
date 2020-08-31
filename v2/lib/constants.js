@@ -1,11 +1,12 @@
-const ERROR_TYPES = ['unhandledRejection', 'uncaughtException'];
-const KAFKA_EVENTTYPE = 'kafka';
-const KAFKA_PROTOCAL = 'kafka';
-const SIGNAL_TRAPS = ['SIGTERM', 'SIGINT', 'SIGUSR2'];
+const PROTOCOL_KAFKA = 'kafka'
+
+const ERROR_TYPES = ['unhandledRejection', 'uncaughtException']
+const SIGNAL_TRAPS = ['SIGTERM', 'SIGINT', 'SIGUSR2']
 
 module.exports = {
+	// Supported protocols
+	PROTOCOL_KAFKA,
+	// Other constants
 	ERROR_TYPES,
-	KAFKA_EVENTTYPE,
-	KAFKA_PROTOCAL,
 	SIGNAL_TRAPS,
 };

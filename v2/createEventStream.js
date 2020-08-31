@@ -1,4 +1,4 @@
-const { KAFKA_PROTOCAL } = require('./lib/constants')
+const { PROTOCOL_KAFKA } = require('./lib/constants')
 const { createInstance } = require('./kafka')
 
 const createEventStream = ({
@@ -10,7 +10,7 @@ const createEventStream = ({
 	username,
 }) => {
 	// TODO: Support more than just the kafka protocal
-	if (protocol !== KAFKA_PROTOCAL) { throw Error('Unsupported protocal type') }
+	if (protocol !== PROTOCOL_KAFKA) { throw Error('Unsupported protocal type') }
 	const { emit, listen } = createInstance({
 		id,
 		mechanism,
