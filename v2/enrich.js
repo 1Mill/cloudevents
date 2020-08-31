@@ -7,7 +7,7 @@ const enrich = ({
 		...cloudevent,
 		enrichment: JSON.stringify(enrichment),
 		enrichmentcontenttype,
-		time: new Date().toISOString(),
+		enrichmenttime: new Date().toISOString(),
 	}
 }
 
