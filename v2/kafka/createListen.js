@@ -34,8 +34,10 @@ const createListen = ({
 				await handler({
 					...cloudevent,
 					cloudevent,
+					data: JSON.parse(cloudevent.data),
+					enrichment: JSON.parse(cloudevent.enrichment),
 					isEnriched: isEnriched({ cloudevent }),
-				});
+				})
 			}
 		})
 
@@ -43,21 +45,21 @@ const createListen = ({
 		ERROR_TYPES.map(errorType => {
 			process.on(errorType, async (err) => {
 				try {
-					console.log(`process.on ${errorType}`);
-					console.error(err);
-					await disconnect();
-					process.exit(0);
+					console.log(`process.on ${errorType}`)
+					console.error(err)
+					await disconnect()
+					process.exit(0)
 				} catch (_err) {
-					process.exit(1);
+					process.exit(1)
 				}
 			})
 		})
 		SIGNAL_TRAPS.map(signalTrap => {
 			process.once(signalTrap, async () => {
 				try {
-					await disconnect();
+					await disconnect()
 				} finally {
-					process.kill(process.pid, signalTrap);
+					process.kill(process.pid, signalTrap)
 				}
 			})
 		})
