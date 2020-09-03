@@ -1,8 +1,14 @@
 // Client Configuration for KafkaJS: https://kafka.js.org/docs/configuration
+const SCRAM_MECHANISMS = [
+	'plain',
+	'scram-sha-256',
+	'scram-sha-512',
+]
+
 const createAuthentication = ({ mechanism, password, username }) => {
-	if (mechanism == 'scram-sha-256') {
+	if (SCRAM_MECHANISMS.includes(mechanism)) {
 		return {
-			sasl: { password, username },
+			sasl: { mechanism, password, username },
 			ssl: true,
 		}
 	}
