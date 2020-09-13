@@ -1,5 +1,6 @@
 const { PROTOCOL_KAFKA, PROTOCOL_LAMBDA } = require('./lib/constants')
 const { createInstance: kafkaCreateInstance } = require('./kafka')
+const { createInstance: lambdaCreateInstance } = require('./lamabda')
 
 const SUPPORTED_PROTOCOLS = [
 	PROTOCOL_KAFKA,
@@ -24,6 +25,10 @@ const createEventStream = ({
 			urls,
 			username,
 		})
+	}
+
+	if (protocol === PROTOCOL_LAMBDA) {
+		return lambdaCreateInstance({})
 	}
 }
 
