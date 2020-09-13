@@ -15,7 +15,8 @@ const createEventStream = ({
 	urls,
 	username,
 }) => {
-	if (!SUPPORTED_PROTOCOLS.includes(protocol)) { throw new Error(`The "${protocol}" protocol is not supported`);}
+	if (!protocol) { throw new Error('The "protocol" argument is required') }
+	if (!SUPPORTED_PROTOCOLS.includes(protocol)) { throw new Error(`The "${protocol}" protocol is not supported`) }
 
 	if (protocol === PROTOCOL_KAFKA) {
 		return kafkaCreateInstance({
