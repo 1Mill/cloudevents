@@ -58,11 +58,11 @@ const broker = createBroker({
 
 subscribe({
   broker,
-  hanlder: async({ cloudevent, data, enrichment, isEnriched }) => {
+  hanlder: async({ cloudevent, data, enrichmentdata, isEnriched }) => {
     if (!isEnriched) {
       return 'Enrich and re-publish event with this value'
     } else {
-      console.log(enrichment);
+      console.log(enrichmentdata);
     }
   },
   types: ['my-topic.version', 'my-other-topic.version'],

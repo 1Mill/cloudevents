@@ -35,12 +35,12 @@ const createCloudevent = ({
 
 		// Optional enrichment data
 		enrichmentdata: isEnrichmentEncoded
-			? enrichment
-			: JSON.stringify(enrichment),
+			? enrichmentdata
+			: JSON.stringify(enrichmentdata),
 		enrichmentdatacontenttype: isEnrichmentEncoded
 			? enrichmentcontenttype
 			: 'application/json',
-		enrichmenttime: enrichment === undefined
+		enrichmenttime: enrichmentdata === undefined
 			? undefined
 			: new Date().toISOString(),
 	}
