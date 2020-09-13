@@ -2,8 +2,8 @@ const createCloudevent = ({
 	data = undefined,
 	datacontenttype = undefined,
 	dlx = 'dlx',
-	enrichment = undefined,
-	enrichmentcontenttype = undefined,
+	enrichmentdata = undefined,
+	enrichmentdatacontenttype = undefined,
 	id,
 	source,
 	specversion = '1.0',
@@ -14,7 +14,7 @@ const createCloudevent = ({
 	if (!type) { throw new Error('Cloudevent "type" is as required') }
 
 	const isDataEncoded = data !== undefined && datacontenttype !== undefined
-	const isEnrichmentEncoded = enrichment !== undefined && enrichmentcontenttype !== undefined
+	const isEnrichmentEncoded = enrichmentdata !== undefined && enrichmentdatacontenttype !== undefined
 
 	const cloudevent = {
 		// Required defaults
