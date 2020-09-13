@@ -1,5 +1,5 @@
 const isEnriched = ({ cloudevent }) => {
-	return cloudevent && cloudevent.enrichment !== undefined
+	return cloudevent.enrichmentdata !== undefined;
 }
 
 module.exports = { isEnriched }

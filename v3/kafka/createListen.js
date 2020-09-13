@@ -35,8 +35,8 @@ const createListen = ({
 					...cloudevent,
 					cloudevent,
 					data: JSON.parse(cloudevent.data),
-					enrichment: isEnriched({ cloudevent })
-						? JSON.parse(cloudevent.enrichment)
+					enrichmentdata: isEnriched({ cloudevent })
+						? JSON.parse(cloudevent.enrichmentdata)
 						: undefined,
 					isEnriched: isEnriched({ cloudevent }),
 				})

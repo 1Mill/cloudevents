@@ -1,3 +1,3 @@
-const { v2 } = require('./v2')
+const { v3 } = require('./v3')
 
-module.exports = Object.freeze({ v2 })
+module.exports = Object.freeze({ v3 })
