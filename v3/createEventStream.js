@@ -17,14 +17,13 @@ const createEventStream = ({
 	if (!SUPPORTED_PROTOCOLS.includes(protocol)) { throw new Error(`The "${protocol}" protocol is not supported`);}
 
 	if (protocol === PROTOCOL_KAFKA) {
-		const { emit, listen } = kafkaCreateInstance({
+		return kafkaCreateInstance({
 			id,
 			mechanism,
 			password,
 			urls,
 			username,
 		})
-		return { emit, listen }
 	}
 }
 
