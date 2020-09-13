@@ -1,6 +1,6 @@
 const { PROTOCOL_KAFKA, PROTOCOL_LAMBDA } = require('./lib/constants')
 const { createInstance: kafkaCreateInstance } = require('./kafka')
-const { createInstance: lambdaCreateInstance } = require('./lamabda')
+const { createInstance: lambdaCreateInstance } = require('./lambda')
 
 const SUPPORTED_PROTOCOLS = [
 	PROTOCOL_KAFKA,
