@@ -1,4 +1,4 @@
-const createCloudevent = require('./createCloudevent')
+const { createCloudevent } = require('./createCloudevent')
 
 const enrichCloudevent = ({
 	cloudevent,

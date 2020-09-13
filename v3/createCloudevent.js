@@ -1,12 +1,13 @@
 const createCloudevent = ({
-	data = undefined,
-	datacontenttype = undefined,
+	data,
+	datacontenttype,
 	dlx = 'dlx',
-	enrichmentdata = undefined,
-	enrichmentdatacontenttype = undefined,
+	enrichmentdata,
+	enrichmentdatacontenttype,
 	id,
 	source,
 	specversion = '1.0',
+	time,
 	type,
 }) => {
 	if (!id) { throw new Error('Cloudevent "id" is as required') }
@@ -22,7 +23,7 @@ const createCloudevent = ({
 		id,
 		source,
 		specversion,
-		time: new Date().toISOString(),
+		time: time || new Date().toISOString(),
 		type,
 
 		// Optional original data
