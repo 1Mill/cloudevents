@@ -7,6 +7,7 @@ const SIGNAL_TRAPS = ['SIGTERM', 'SIGINT', 'SIGUSR2']
 module.exports = {
 	// Supported protocols
 	PROTOCOL_KAFKA,
+	PROTOCOL_LAMBDA,
 	// Other constants
 	ERROR_TYPES,
 	SIGNAL_TRAPS,
