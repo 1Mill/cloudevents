@@ -1,6 +1,6 @@
 const { isEnriched } = require('../isEnriched')
 
-const handler = (someFunction) => {
+const handler = (func) => {
 	return async (event, _context, _callback) => {
 		const cloudevent = event
 
@@ -11,7 +11,7 @@ const handler = (someFunction) => {
 			enrichmentdatacontenttype,
 		} = cloudevent
 
-		await someFunction({
+		const payload = await func({
 			...cloudevent,
 			cloudevent,
 			data: datacontenttype === 'application/json'
@@ -22,6 +22,7 @@ const handler = (someFunction) => {
 				: enrichmentdata,
 			isEnriched: isEnriched({ cloudevent })
 		})
+		return payload // * Returned to AWS invoker if 'RequestResponse' type
 	}
 }
 
