@@ -34,7 +34,9 @@ const createListen = ({
 				await handler({
 					...cloudevent,
 					cloudevent,
-					data: JSON.parse(cloudevent.data),
+					data: cloudevent.data
+						? JSON.parse(cloudevent.data)
+						: undefined,
 					enrichmentdata: isEnriched({ cloudevent })
 						? JSON.parse(cloudevent.enrichmentdata)
 						: undefined,
