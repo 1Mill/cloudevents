@@ -6,7 +6,7 @@ const handler = (func) => {
 		const payload = await func({
 			...cloudevent,
 			cloudevent,
-			data: datacontenttype === 'application/json'
+			data: data && datacontenttype === 'application/json'
 				? JSON.parse(data)
 				: data,
 		})
