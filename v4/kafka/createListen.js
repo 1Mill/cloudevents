@@ -2,7 +2,6 @@ const { ERROR_TYPES, SIGNAL_TRAPS } = require('../lib/constants')
 const { Kafka } = require('kafkajs')
 const { convertFrom } = require('./convertFrom')
 const { createAuthentication } = require('./createAuthentication')
-const { isEnriched } = require('../isEnriched')
 
 const createListen = ({
 	id,
