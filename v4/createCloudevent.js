@@ -21,13 +21,8 @@ const createCloudevent = ({
 		type,
 
 		// Optional data
-		// * !!(undefined && undefined) => !!undefined = false
-		data: !!(data && datacontenttype)
-			? JSON.stringify(data)
-			: data,
-		datacontenttype: !!(data && datacontenttype)
-			? 'application/json'
-			: datacontenttype,
+		data,
+		datacontenttype,
 	}
 	return cloudevent
 }

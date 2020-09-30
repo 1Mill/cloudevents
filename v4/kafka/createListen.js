@@ -30,15 +30,7 @@ const createListen = ({
 		await run({
 			eachMessage: async (event) => {
 				const { cloudevent } = convertFrom({ event })
-
-				const { data, datacontenttype } = cloudevent
-				await handler({
-					...cloudevent,
-					cloudevent,
-					data: !!data && datacontenttype === 'application/json'
-						? JSON.parse(data)
-						: data,
-				})
+				await handler({ ...cloudevent, cloudevent })
 			}
 		})
 
