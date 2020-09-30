@@ -11,8 +11,6 @@ const createCloudevent = ({
 	if (!source) { throw new Error('Cloudevent "source" is as required') }
 	if (!type) { throw new Error('Cloudevent "type" is as required') }
 
-	// * !!(undefined && undefined) => !!undefined = false
-	const isDataEncoded = !!(data && datacontenttype)
 	const cloudevent = {
 		// Required defaults
 		dlx,
@@ -22,13 +20,14 @@ const createCloudevent = ({
 		time: new Date().toISOString(),
 		type,
 
-		// Optional original data
-		data: isDataEncoded
-			? data
-			: JSON.stringify(data),
-		datacontenttype: isDataEncoded
-			? datacontenttype
-			: 'application/json',
+		// Optional data
+		// * !!(undefined && undefined) => !!undefined = false
+		data: !!(data && datacontenttype)
+			? JSON.stringify(data)
+			: data,
+		datacontenttype: !!(data && datacontenttype)
+			? 'application/json'
+			: datacontenttype,
 	}
 	return cloudevent
 }
