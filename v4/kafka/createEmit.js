@@ -19,13 +19,13 @@ const createEmit = ({
 		brokers: urls,
 		clientId: id,
 	})
-	const { connect, disconnect, send } = kafka.producer()
 
+	const producer = kafka.producer()
 	const emit = async ({ cloudevent }) => {
-		await connect()
+		await producer.connect()
 		const { event } = convertTo({ cloudevent })
-		await send(event)
-		await disconnect()
+		await producer.send(event)
+		await producer.disconnect()
 	}
 	return { emit }
 }
