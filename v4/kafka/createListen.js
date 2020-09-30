@@ -21,13 +21,13 @@ const createListen = ({
 		clientId: id,
 	})
 
-	const { connect, disconnect, run, subscribe } = kafka.consumer({ groupId: id })
+	const consumer = kafka.consumer({ groupId: id });
 	const listen = async ({ handler, types }) => {
-		await connect()
+		await consumer.connect()
 		types.forEach(async (type) => {
-			await subscribe({ fromBeginning: true, topic: type })
+			await consumer.subscribe({ fromBeginning: true, topic: type })
 		})
-		await run({
+		await consumer.run({
 			eachMessage: async (event) => {
 				const { cloudevent } = convertFrom({ event })
 				await handler({ ...cloudevent, cloudevent })
@@ -40,7 +40,7 @@ const createListen = ({
 				try {
 					console.log(`process.on ${errorType}`)
 					console.error(err)
-					await disconnect()
+					await consumer.disconnect()
 					process.exit(0)
 				} catch (_err) {
 					process.exit(1)
@@ -50,7 +50,7 @@ const createListen = ({
 		SIGNAL_TRAPS.map(signalTrap => {
 			process.once(signalTrap, async () => {
 				try {
-					await disconnect()
+					await consumer.disconnect()
 				} finally {
 					process.kill(process.pid, signalTrap)
 				}
