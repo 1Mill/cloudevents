@@ -11,7 +11,8 @@ const createCloudevent = ({
 	if (!source) { throw new Error('Cloudevent "source" is as required') }
 	if (!type) { throw new Error('Cloudevent "type" is as required') }
 
-	const isDataEncoded = data !== undefined && datacontenttype !== undefined
+	// * !!(undefined && undefined) => !!undefined = false
+	const isDataEncoded = !!(data && datacontenttype)
 	const cloudevent = {
 		// Required defaults
 		dlx,
