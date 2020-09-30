@@ -29,7 +29,7 @@ const createListen = ({
 			await subscribe({ fromBeginning: true, topic: type })
 		})
 		await run({
-			eachMessage: async(event) => {
+			eachMessage: async (event) => {
 				const { cloudevent } = convertFrom({ event })
 				await handler({
 					...cloudevent,
