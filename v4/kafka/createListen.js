@@ -35,7 +35,7 @@ const createListen = ({
 				await handler({
 					...cloudevent,
 					cloudevent,
-					data: data && datacontenttype === 'application/json'
+					data: !!data && datacontenttype === 'application/json'
 						? JSON.parse(data)
 						: data,
 				})
