@@ -24,9 +24,10 @@ const createListen = ({
 	const consumer = kafka.consumer({ groupId: id });
 	const listen = async ({ handler, types }) => {
 		await consumer.connect()
-		types.forEach(async (type) => {
-			await consumer.subscribe({ fromBeginning: true, topic: type })
-		})
+		await Promise.all(types.map(type => consumer.subscribe({
+			fromBeginning: true,
+			topic: type,
+		})))
 		await consumer.run({
 			eachMessage: async (event) => {
 				const { cloudevent } = convertFrom({ event })
