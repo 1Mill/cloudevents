@@ -16,81 +16,42 @@ npm install @1mill/cloudevents
 ### Publish CloudEvent to event stream
 
 ```js
-const {
-  KAFKA_EVENTTYPE,
-  create,
-  createBroker,
-  publish,
-} = require('@1mill/cloudevents');
-
-const broker = createBroker({
-  eventType: KAFKA_EVENTTYPE,
-  id: 'my-unique-producer-id',
-  urls: ['http://my-kafka-url:9092/'],
-});
-
-const cloudevent = create({
-  type: 'my-topic.version',
-});
-
-publish({
-  broker,
-  cloudevent,
-});
-```
-
-### Subscribe to CloudEvents from event stream
-
-```js
-const {
-  KAFKA_EVENTTYPE,
-  create,
-  createBroker,
-  publish,
-  subscribe,
-} = require('@1mill/cloudevents');
-
-const broker = createBroker({
-  eventType: KAFKA_EVENTTYPE,
-  id: 'my-unique-producer-id',
-  urls: ['http://my-kafka-url:9092/'],
-});
-
-subscribe({
-  broker,
-  hanlder: async({ cloudevent, data, enrichmentdata, isEnriched }) => {
-    if (!isEnriched) {
-      return 'Enrich and re-publish event with this value'
-    } else {
-      console.log(enrichmentdata);
-    }
-  },
-  types: ['my-topic.version', 'my-other-topic.version'],
+const { v4: { createCloudevent, createEventStream } } = require('@1mill/cloudevents')
+const stream = createEventStream({
+  protocol: 'kafka',
+  urls: 'my-kafka-url:9092',
 })
+
+const cloudevent = createCloudevent({
+  data: JSON.stringify({
+    my: true,
+    payload: { something: true },
+  }),
+  datacontenttype: 'application/json',
+  id: 'my-id',
+  source: 'my-source',
+  type: 'my-type.version.modifier',
+})
+stream.emit({ cloudevent })
 ```
 
-### Publish event to Dead Letter Exchange
+### Subscribe to event stream
 
 ```js
-...
-
-subscribe({
-  broker,
-  hanlder: async({ cloudevent }) => {
-    try {
-      ...
-    } catch (err) {
-      console.error('Something went wrong!')
-      publish({
-        broker,
-        cloudevent: {
-          ...cloudevent,
-          dlx: 'my-dead-letter-exchange-topic',
-        },
-      });
-    }
+const { v4: { createEventStream } } = require('@1mill/cloudevents')
+const stream = createEventStream({
+  protocol: 'kafka',
+  urls: 'my-kafka-urls:9092',
+})
+stream.listen({
+  handler: ({ cloudevent }) => {
+    const { my, payload } = JSON.parse(cloudevent.data)
+    console.log(my + payload)
   },
-  types: ['my-topic.version']
+  types: [
+    'my-other-type.version.modifier',
+    'my-type.version.modifier',
+  ]
 })
 ```
 
