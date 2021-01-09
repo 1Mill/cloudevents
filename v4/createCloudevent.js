@@ -3,6 +3,9 @@ const createCloudevent = ({
 	datacontenttype,
 	dlx = 'dlx',
 	id,
+	originid,
+	originsource,
+	origintype,
 	source,
 	specversion = '1.0',
 	type,
@@ -23,6 +26,11 @@ const createCloudevent = ({
 		// Optional data
 		data,
 		datacontenttype,
+
+		// Origin data
+		originid = originid || id,
+		originsource = originsource || source,
+		origintype = origintype || type,
 	}
 	return cloudevent
 }
