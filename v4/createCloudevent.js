@@ -28,9 +28,9 @@ const createCloudevent = ({
 		datacontenttype,
 
 		// Origin data
-		originid = originid || id,
-		originsource = originsource || source,
-		origintype = origintype || type,
+		originid: originid || id,
+		originsource: originsource || source,
+		origintype: origintype || type,
 	}
 	return cloudevent
 }
