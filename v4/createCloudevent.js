@@ -1,6 +1,7 @@
 const createCloudevent = ({
 	data,
 	datacontenttype,
+	dataschema,
 	dlx = 'dlx',
 	id,
 	originid,
@@ -8,6 +9,7 @@ const createCloudevent = ({
 	origintype,
 	source,
 	specversion = '1.0',
+	subject,
 	type,
 }) => {
 	if (!id) { throw new Error('Cloudevent "id" is as required') }
@@ -15,8 +17,8 @@ const createCloudevent = ({
 	if (!type) { throw new Error('Cloudevent "type" is as required') }
 
 	const cloudevent = {
+		// * Defined in cloudevents specification
 		// Required defaults
-		dlx,
 		id,
 		source,
 		specversion,
@@ -26,6 +28,12 @@ const createCloudevent = ({
 		// Optional data
 		data,
 		datacontenttype,
+		dataschema,
+		subject,
+
+		// * In-house attribute extensions
+		// Required defaults
+		dlx,
 
 		// Origin data
 		originid: originid || id,
