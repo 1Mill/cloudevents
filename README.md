@@ -2,13 +2,13 @@
 
 ## Introduction
 
-This package is an implementation of CloudEvents v1 over event streaming applications.
-Currently, only Kafka is supported, but the intention is to make this as platform agnostic as possible.
+This package is an implementation and extention of the CloudEvents v1 specification to easily communicate with event streaming applications.
+Currently only Kafka is suppported, but the intention is to make this library as agnostic as possible.
 
 ## How to install
 
 ```bash
-npm install @1mill/cloudevents
+npm install @1mill/cloudevents@^0.10
 ```
 
 ## Example
@@ -53,6 +53,25 @@ stream.listen({
     'my-type.version.modifier',
   ]
 })
+```
+
+### Lambda handler
+
+```js
+const { v4: { createEventStream } } = require('@1mill/cloudevents')
+
+const perform = async ({ cloudevent }) => {
+  const { my, payload } = JSON.parse(cloudevent.data)
+  await new Promise((resolve, _reject) => {
+    setTimeout(() => {
+      console.log(my + payload)
+      resolve()
+    }, 1000)
+  })
+}
+
+const lambda = createEventStream({ protocol: 'lambda' })
+exports.handler = lambda.handler(perform)
 ```
 
 ## Release new version
