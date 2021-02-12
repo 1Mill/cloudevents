@@ -1,8 +1,12 @@
 const handler = (func) => {
-	return async (event, _context, _callback) => {
-		const cloudevent = event
-		const payload = await func ({ ...cloudevent, cloudevent })
-		return payload // * Returned to AWS invoker if 'RequestResponse' type
+	return async (event, _context, callback) => {
+		try {
+			const cloudevent = event
+			const payload = await func({ ...cloudevent, cloudevent })
+			callback(null, payload)
+		} catch (err) {
+			callback(err, null)
+		}
 	}
 }
 
