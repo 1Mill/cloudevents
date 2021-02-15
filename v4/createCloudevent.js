@@ -12,6 +12,7 @@ const createCloudevent = ({
 	subject,
 	type,
 }) => {
+	if (!dlx) { throw new Error('Cloudevent "dlx" is as required') }
 	if (!id) { throw new Error('Cloudevent "id" is as required') }
 	if (!source) { throw new Error('Cloudevent "source" is as required') }
 	if (!type) { throw new Error('Cloudevent "type" is as required') }
