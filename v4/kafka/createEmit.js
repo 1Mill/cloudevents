@@ -20,8 +20,8 @@ const createEmit = ({
 		clientId: id,
 	})
 
-	const producer = kafka.producer()
 	const emit = async ({ cloudevent }) => {
+		const producer = kafka.producer()
 		await producer.connect()
 		const { event } = convertTo({ cloudevent })
 		await producer.send(event)
