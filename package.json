@@ -1,6 +1,6 @@
 {
   "name": "@1mill/cloudevents",
-  "version": "0.10.8",
+  "version": "0.10.9",
   "description": "Node cloudevents specification and helper functions",
   "main": "index.js",
   "scripts": {
