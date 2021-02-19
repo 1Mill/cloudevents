@@ -21,8 +21,8 @@ const createListen = ({
 		clientId: id,
 	})
 
-	const consumer = kafka.consumer({ groupId: id });
 	const listen = async ({ handler, types }) => {
+		const consumer = kafka.consumer({ groupId: id });
 		await consumer.connect()
 
 		const promises = types.map(type => {
