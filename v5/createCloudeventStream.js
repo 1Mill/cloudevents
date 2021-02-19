@@ -7,7 +7,7 @@ const SUPPORTED_PROTOCOLS = [
 	PROTOCOL_LAMBDA,
 ]
 
-const createEventStream = ({
+const createCloudeventStream = ({
 	id,
 	mechanism,
 	password,
@@ -33,4 +33,4 @@ const createEventStream = ({
 	}
 }
 
-module.exports = { createEventStream }
+module.exports = { createCloudeventStream }
