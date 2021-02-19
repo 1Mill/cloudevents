@@ -24,10 +24,15 @@ const createListen = ({
 	const consumer = kafka.consumer({ groupId: id });
 	const listen = async ({ handler, types }) => {
 		await consumer.connect()
-		await Promise.all(types.map(type => consumer.subscribe({
-			fromBeginning: true,
-			topic: type,
-		})))
+
+		const promises = types.map(type => {
+			consumer.subscribe({
+				fromBeginning: type.fromBeginning || false,
+				topic: type.type || type,
+			})
+		})
+		await Promise.all(promises)
+
 		await consumer.run({
 			eachMessage: async (event) => {
 				try {
