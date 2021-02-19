@@ -30,8 +30,12 @@ const createListen = ({
 		})))
 		await consumer.run({
 			eachMessage: async (event) => {
-				const { cloudevent } = convertFrom({ event })
-				await handler({ cloudevent })
+				try {
+					const { cloudevent } = convertFrom({ event })
+					await handler({ cloudevent })
+				} catch (err) {
+					console.error(err)
+				}
 			}
 		})
 
