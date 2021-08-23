@@ -21,7 +21,7 @@ const createCloudevent = ({
 		id,
 		source,
 		specversion,
-		time: new Date().toISOString(),
+		time: new Date().toUTCString(),
 		type,
 
 		// Optional data
