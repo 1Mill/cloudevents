@@ -13,7 +13,8 @@
     "url": "https://github.com/1mill/cloudevents.git"
   },
   "dependencies": {
-    "kafkajs": "1.12.0"
+    "kafkajs": "1.12.0",
+    "nanoid": "^3.1.25"
   },
   "devDependencies": {
     "mocha": "^8.1.3"
