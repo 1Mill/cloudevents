@@ -2,76 +2,101 @@
 
 ## Introduction
 
-This package is an implementation and extention of the CloudEvents v1 specification to easily communicate with event streaming applications.
-Currently only Kafka is suppported, but the intention is to make this library as agnostic as possible.
+This is an implementation and extention of the CloudEvents v1 specification to easily build cloudevents.
 
 ## How to install
 
 ```bash
-npm install @1mill/cloudevents@^0.10
+npm install @1mill/cloudevents@^0.11
 ```
 
-## Example
-
-### Publish CloudEvent to event stream
+## Example usage
 
 ```js
-const { v4: { createCloudevent, createEventStream } } = require('@1mill/cloudevents')
-const stream = createEventStream({
-  protocol: 'kafka',
-  urls: 'my-kafka-url:9092',
-})
+const { Cloudevent } = require('@1mill/cloudevents')
 
-const cloudevent = createCloudevent({
+const cloudevent = new Cloudevent({
   data: JSON.stringify({
-    my: true,
-    payload: { something: true },
+    someAttribute: 'yes',
+    someOtherAttribute: { thing: true },
   }),
-  datacontenttype: 'application/json',
-  id: 'my-id',
-  source: 'my-source',
-  type: 'my-type.version.modifier',
+  source: 'https://www.my-website.com/my/page/123', // * Required
+  subject: '123',
+  type: 'cmd.do-this-command.v0', // * Required
 })
-stream.emit({ cloudevent })
+
+console.log(cloudevent)
+
+// Cloudevent {
+//   id: '-of0T1jfpvD7_lOXtynbb',
+//   source: 'https://www.my-website.come/my/page/123',
+//   type: 'cmd.do-this-command.v0',
+//   specversion: '1.0',
+//   data: '{"someAttribute":"yes","someOtherAttribute":{"thing":true}}',
+//   datacontenttype: 'application/json',
+//   dataschema: undefined,
+//   subject: '123',
+//   time: '2021-09-06T16:29:26.527Z',
+//   originid: '-of0T1jfpvD7_lOXtynbb',
+//   originsource: 'https://www.my-website.come/my/page/123',
+//   origintype: 'cmd.do-this-command.v0'
+// }
 ```
 
-### Subscribe to event stream
+### Example of Chaining Cloudevents
 
 ```js
-const { v4: { createEventStream } } = require('@1mill/cloudevents')
-const stream = createEventStream({
-  protocol: 'kafka',
-  urls: 'my-kafka-urls:9092',
+// 1. Create command
+const cmdCloudevent = new Cloudevent({
+  source: 'https://my-ui.com/my/feature/page/123',
+  subject: '123',
+  type: 'cmd.do-this-command.v0',
 })
-stream.listen({
-  handler: ({ cloudevent }) => {
-    const { my, payload } = JSON.parse(cloudevent.data)
-    console.log(my + payload)
-  },
-  types: [
-    'my-other-type.version.modifier',
-    'my-type.version.modifier',
-  ]
+
+console.log(cmdCloudevent)
+// Cloudevent {
+//   id: 'pDScxm45M2-BnnIYHw4P3',
+//   source: 'https://www.my-website.come/my/page/123',
+//   type: 'cmd.do-this-command.v0',
+//   specversion: '1.0',
+//   data: '{"someAttribute":"yes","someOtherAttribute":{"thing":true}}',
+//   datacontenttype: 'application/json',
+//   dataschema: undefined,
+//   subject: '123',
+//   time: '2021-09-06T16:38:49.717Z',
+//   originid: 'pDScxm45M2-BnnIYHw4P3',
+//   originsource: 'https://www.my-website.come/my/page/123',
+//   origintype: 'cmd.do-this-command.v0'
+// }
+
+// 2. Publish command to Enterprise Event Bus (e.g. Kafka)
+
+// 3. Subscribe to cloudevent type on Enterprise Event Buss
+
+// 4. React to cloudevent command
+const enrichment = dataFromMyBusinessProcess()
+const fctCloudevent = new Cloudevent({
+  ...cmdCloudevent,
+  data: JSON.stringify(enrichment),
+  source: 'arn:aws:lambda:us-east-1:123456789012:function:my-function',
+  type: 'fct.this-thing-happened.v0',
 })
-```
 
-### Lambda handler
-
-```js
-const { v4: { createEventStream } } = require('@1mill/cloudevents')
-
-const perform = async ({ cloudevent }) => {
-  const { my, payload } = JSON.parse(cloudevent.data)
-  await new Promise((resolve, _reject) => {
-    setTimeout(() => {
-      console.log(my + payload)
-      resolve()
-    }, 1000)
-  })
-}
-
-const lambda = createEventStream({ protocol: 'lambda' })
-exports.handler = lambda.handler(perform)
+console.log(fctCloudevent)
+// Cloudevent {
+//   id: 'N02yLAd_bZeZLGRUl78AS',
+//   source: 'arn:aws:lambda:us-east-1:123456789012:function:my-function',
+//   type: 'fct.this-thing-happened.v0',
+//   specversion: '1.0',
+//   data: '{...}',
+//   datacontenttype: 'application/json',
+//   dataschema: undefined,
+//   subject: '123',
+//   time: '2021-09-06T16:38:49.717Z',
+//   originid: 'pDScxm45M2-BnnIYHw4P3',
+//   originsource: 'https://www.my-website.come/my/page/123',
+//   origintype: 'cmd.do-this-command.v0'
+// }
 ```
 
 ## Release new version
