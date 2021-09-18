@@ -4,13 +4,9 @@
 
 This is an implementation and extention of the CloudEvents v1 specification to easily build cloudevents.
 
-## How to install
-
 ```bash
-npm install @1mill/cloudevents@^0.11
+npm install @1mill/cloudevents@^2
 ```
-
-## Example usage
 
 ```js
 const { Cloudevent } = require('@1mill/cloudevents')
@@ -26,7 +22,6 @@ const cloudevent = new Cloudevent({
 })
 
 console.log(cloudevent)
-
 // Cloudevent {
 //   id: '-of0T1jfpvD7_lOXtynbb',
 //   source: 'https://www.my-website.come/my/page/123',
@@ -37,52 +32,21 @@ console.log(cloudevent)
 //   dataschema: undefined,
 //   subject: '123',
 //   time: '2021-09-06T16:29:26.527Z',
+//   origintime: '2021-09-06T16:29:26.527Z',
 //   originid: '-of0T1jfpvD7_lOXtynbb',
 //   originsource: 'https://www.my-website.come/my/page/123',
 //   origintype: 'cmd.do-this-command.v0'
 // }
-```
 
-### Example of Chaining Cloudevents
-
-```js
-// 1. Create command
-const cmdCloudevent = new Cloudevent({
-  source: 'https://my-ui.com/my/feature/page/123',
-  subject: '123',
-  type: 'cmd.do-this-command.v0',
-})
-
-console.log(cmdCloudevent)
-// Cloudevent {
-//   id: 'pDScxm45M2-BnnIYHw4P3',
-//   source: 'https://www.my-website.come/my/page/123',
-//   type: 'cmd.do-this-command.v0',
-//   specversion: '1.0',
-//   data: '{"someAttribute":"yes","someOtherAttribute":{"thing":true}}',
-//   datacontenttype: 'application/json',
-//   dataschema: undefined,
-//   subject: '123',
-//   time: '2021-09-06T16:38:49.717Z',
-//   originid: 'pDScxm45M2-BnnIYHw4P3',
-//   originsource: 'https://www.my-website.come/my/page/123',
-//   origintype: 'cmd.do-this-command.v0'
-// }
-
-// 2. Publish command to Enterprise Event Bus (e.g. Kafka)
-
-// 3. Subscribe to cloudevent type on Enterprise Event Buss
-
-// 4. React to cloudevent command
-const enrichment = dataFromMyBusinessProcess()
-const fctCloudevent = new Cloudevent({
-  ...cmdCloudevent,
+const enrichment = payloadFromMyBusinessProcess()
+const myReactionCloudevent = new Cloudevent({
+  ...cloudevent,
   data: JSON.stringify(enrichment),
   source: 'arn:aws:lambda:us-east-1:123456789012:function:my-function',
   type: 'fct.this-thing-happened.v0',
 })
 
-console.log(fctCloudevent)
+console.log(myReactionCloudevent)
 // Cloudevent {
 //   id: 'N02yLAd_bZeZLGRUl78AS',
 //   source: 'arn:aws:lambda:us-east-1:123456789012:function:my-function',
@@ -93,15 +57,30 @@ console.log(fctCloudevent)
 //   dataschema: undefined,
 //   subject: '123',
 //   time: '2021-09-06T16:38:49.717Z',
+//   origintime: '2021-09-06T16:29:26.527Z',
 //   originid: 'pDScxm45M2-BnnIYHw4P3',
 //   originsource: 'https://www.my-website.come/my/page/123',
 //   origintype: 'cmd.do-this-command.v0'
 // }
 ```
 
+|                 | Required | Type   | Default                              | Notes                                                                                    |
+|-----------------|----------|--------|--------------------------------------|------------------------------------------------------------------------------------------|
+| data            |          | Any    |                                      |                                                                                          |
+| datacontenttype |          | String |                                      | If "data" is present, defaults to "application/json" unless specified otherwise          |
+| dataschema      |          | String |                                      |                                                                                          |
+| source          | yes      | String | process.env.1MILL_CLOUDEVENTS_SOURCE | Recommended to use universal identifier (e.g. https://my-domain.com/my/feature/path/123) |
+| specversion     | yes      | String | 1.0                                  | Cloudevent specification version                                                         |
+| subject         |          | String |                                      |                                                                                          |
+| type            | yes      | String |                                      |                                                                                          |
+| origintime      | yes      | String | "time" property                      | "time" property is internally generated as part of the package                           |
+| originid        | yes      | String | "id" property                        | "id" property is internally generated as part of the package                             |
+| originsource    | yes      | String | "source" property                    |                                                                                          |
+| origintype      | yes      | String | "type" property                      |                                                                                          |
+
 ## Release new version
 
 ```bash
 npm version <major|minor|patch>
-npm publish
+npm run depoy
 ```
