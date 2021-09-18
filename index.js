@@ -13,6 +13,7 @@ class Cloudevent {
 		dataschema,
 		originid,
 		originsource,
+		origintime,
 		origintype,
 		source,
 		specversion,
@@ -60,6 +61,10 @@ class Cloudevent {
 		this.originsource = originsource || this.source
 		if (!this.originsource) throw new Error('Cloudevent "originsource" is required')
 		if (typeof this.originsource !== 'string') throw new Error('Cloudevent "originsource" must be a string')
+
+		this.origintime = origintime || this.time
+		if (!this.origintime) throw new Error('Cloudevent "origintime" is required')
+		if (typeof this.origintime !== 'string') throw new Error('Cloudevent "origintime" must be a string')
 
 		this.origintype = origintype || this.type
 		if (!this.origintype) throw new Error('Cloudevent "origintype" is required')
