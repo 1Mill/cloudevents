@@ -2,7 +2,15 @@
   "name": "@1mill/cloudevents",
   "version": "0.11.3",
   "description": "Node cloudevents specification and helper",
-  "main": "index.js",
+  "jsnext:main": "dist/index.module.js",
+  "main": "dist/index.js",
+  "module": "dist/index.module.js",
+  "source": "src/index.js",
+  "umd:main": "dist/index.umd.js",
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
     "build": "rm -rf ./dist && microbundle",
     "deploy": "npm run build && npm publish",
