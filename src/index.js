@@ -50,6 +50,10 @@ class Cloudevent {
 		this.time = new Date().toISOString()
 
 		// * In-house extentions
+		this.origintime = origintime || this.time
+		if (!this.origintime) throw new Error('Cloudevent "origintime" is required')
+		if (typeof this.origintime !== 'string') throw new Error('Cloudevent "origintime" must be a string')
+
 		this.originid = originid || this.id
 		if (!this.originid) throw new Error('Cloudevent "originid" is required')
 		if (typeof this.originid !== 'string') throw new Error('Cloudevent "originid" must be a string')
@@ -57,10 +61,6 @@ class Cloudevent {
 		this.originsource = originsource || this.source
 		if (!this.originsource) throw new Error('Cloudevent "originsource" is required')
 		if (typeof this.originsource !== 'string') throw new Error('Cloudevent "originsource" must be a string')
-
-		this.origintime = origintime || this.time
-		if (!this.origintime) throw new Error('Cloudevent "origintime" is required')
-		if (typeof this.origintime !== 'string') throw new Error('Cloudevent "origintime" must be a string')
 
 		this.origintype = origintype || this.type
 		if (!this.origintype) throw new Error('Cloudevent "origintype" is required')
