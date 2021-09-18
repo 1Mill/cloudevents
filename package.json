@@ -4,7 +4,6 @@
   "description": "Node cloudevents specification and helper functions",
   "main": "index.js",
   "scripts": {
-    "test": "mocha **/*.test.js --recursive"
   },
   "author": "@1mill",
   "license": "ISC",
@@ -13,10 +12,7 @@
     "url": "https://github.com/1mill/cloudevents.git"
   },
   "dependencies": {
-    "kafkajs": "1.12.0",
     "nanoid": "^3.1.25"
   },
-  "devDependencies": {
-    "mocha": "^8.1.3"
-  }
+  "devDependencies": {}
 }
