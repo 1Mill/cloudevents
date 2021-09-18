@@ -1,8 +1,4 @@
 const { nanoid } = require('nanoid')
-const { v3 } = require('./v3')
-const { v4 } = require('./v4')
-const { v5 } = require('./v5')
-const { v6 } = require('./v6')
 
 const fetchNodeEnv = name => process && process.env && process.env[name]
 
@@ -54,6 +50,10 @@ class Cloudevent {
 		this.time = new Date().toISOString()
 
 		// * In-house extentions
+		this.origintime = origintime || this.time
+		if (!this.origintime) throw new Error('Cloudevent "origintime" is required')
+		if (typeof this.origintime !== 'string') throw new Error('Cloudevent "origintime" must be a string')
+
 		this.originid = originid || this.id
 		if (!this.originid) throw new Error('Cloudevent "originid" is required')
 		if (typeof this.originid !== 'string') throw new Error('Cloudevent "originid" must be a string')
@@ -62,15 +62,10 @@ class Cloudevent {
 		if (!this.originsource) throw new Error('Cloudevent "originsource" is required')
 		if (typeof this.originsource !== 'string') throw new Error('Cloudevent "originsource" must be a string')
 
-		this.origintime = origintime || this.time
-		if (!this.origintime) throw new Error('Cloudevent "origintime" is required')
-		if (typeof this.origintime !== 'string') throw new Error('Cloudevent "origintime" must be a string')
-
 		this.origintype = origintype || this.type
 		if (!this.origintype) throw new Error('Cloudevent "origintype" is required')
 		if (typeof this.origintype !== 'string') throw new Error('Cloudevent "origintype" must be a string')
 	}
 }
 
-
-module.exports = Object.freeze({ Cloudevent, v3, v4, v5, v6 })
+module.exports = Object.freeze({ Cloudevent })
