@@ -1,6 +1,6 @@
 {
   "name": "@1mill/cloudevents",
-  "version": "0.11.3",
+  "version": "1.0.0",
   "description": "Node cloudevents specification and helper",
   "jsnext:main": "dist/index.module.js",
   "main": "dist/index.js",
