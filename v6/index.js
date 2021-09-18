@@ -5,7 +5,6 @@ const createCloudevent = ({
 	id,
 	originid,
 	originsource,
-	origintime,
 	origintype,
 	source,
 	specversion = '1.0',
@@ -16,27 +15,24 @@ const createCloudevent = ({
 	if (!source) { throw new Error('Cloudevent "source" is as required') }
 	if (!type) { throw new Error('Cloudevent "type" is as required') }
 
-	const time = new Date().toUTCString()
-
 	const cloudevent = {
 		// * Defined in cloudevents specification
 		// Required defaults
 		id,
 		source,
 		specversion,
-		time,
+		time: new Date().toUTCString(),
 		type,
 
 		// Optional data
 		data,
-		datacontenttype, // ! Assumed to be 'application/json' unless otherwise stated
+		datacontenttype,
 		dataschema,
 		subject,
 
 		// * In-house attribute extensions
 		originid: originid || id,
 		originsource: originsource || source,
-		origintime: origintime || time,
 		origintype: origintype || type,
 	}
 	return cloudevent
