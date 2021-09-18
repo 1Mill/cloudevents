@@ -58,7 +58,7 @@ console.log(myReactionCloudevent)
 //   subject: '123',
 //   time: '2021-09-06T16:38:49.717Z',
 //   origintime: '2021-09-06T16:29:26.527Z',
-//   originid: 'pDScxm45M2-BnnIYHw4P3',
+//   originid: '-of0T1jfpvD7_lOXtynbb',
 //   originsource: 'https://www.my-website.come/my/page/123',
 //   origintype: 'cmd.do-this-command.v0'
 // }
