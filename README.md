@@ -69,7 +69,7 @@ console.log(myReactionCloudevent)
 | data            |          | Any    |                                      |                                                                                          |
 | datacontenttype |          | String |                                      | If "data" is present, defaults to "application/json" unless specified otherwise          |
 | dataschema      |          | String |                                      |                                                                                          |
-| source          | yes      | String | process.env.MILL_CLOUDEVENTS_SOURCE | Recommended to use universal identifier (e.g. https://my-domain.com/my/feature/path/123) |
+| source          | yes      | String | process.env.MILL_CLOUDEVENTS_SOURCE  | Recommended to use universal identifier (e.g. https://my-domain.com/my/feature/path/123) |
 | specversion     | yes      | String | 1.0                                  | Cloudevent specification version                                                         |
 | subject         |          | String |                                      |                                                                                          |
 | type            | yes      | String |                                      |                                                                                          |
