@@ -1,6 +1,6 @@
 const { nanoid } = require('nanoid')
 
-const fetchNodeEnv = name => process && process.env && process.env[name]
+const fetchNodeEnv = name => typeof(process !== 'undefined') && process && process.env && process.env[name]
 
 class Cloudevent {
 	constructor({
