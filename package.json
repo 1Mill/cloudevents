@@ -8,6 +8,7 @@
   "source": "src/index.js",
   "umd:main": "dist/index.umd.js",
   "unpkg": "dist/index.umd.js",
+  "type": "module",
   "files": [
     "dist",
     "src"
