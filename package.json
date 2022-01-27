@@ -27,7 +27,7 @@
     "url": "https://github.com/1mill/cloudevents.git"
   },
   "dependencies": {
-    "nanoid": "^3.1.25"
+    "nanoid": "^3.2.0"
   },
   "devDependencies": {
     "microbundle": "^0.14.2"
