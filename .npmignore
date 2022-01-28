@@ -1,7 +1,10 @@
 .dockerignore
+.editorconfig
 .gitattributes
 .gitignore
 Dockerfile
 README.md
 docker-compose.yml
 node_modules
+unit.test.html
+unit.test.js
