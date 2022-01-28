@@ -3,7 +3,7 @@
   "version": "3.0.1",
   "description": "Node cloudevents specification and helper",
   "jsnext:main": "dist/index.module.js",
-  "main": "dist/index.js",
+  "main": "dist/index.cjs",
   "module": "dist/index.module.js",
   "source": "src/index.js",
   "umd:main": "dist/index.umd.js",
@@ -14,7 +14,9 @@
     "src"
   ],
   "scripts": {
-    "build": "rm -rf ./dist && microbundle",
+    "build": "rm -rf ./dist && npm run build:browser && npm run build:node",
+    "build:browser": "microbundle --format modern,umd --external none",
+    "build:node": "microbundle --format cjs,esm",
     "deploy": "npm run build && npm publish",
     "dev": "microbundle watch"
   },
