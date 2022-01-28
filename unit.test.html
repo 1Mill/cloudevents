@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="./dist/index.umd.js"></script>
+
+	<script>
+		const { Cloudevent } = cloudevents
+
+		const ce1 = new Cloudevent({ source: 'aaa', type: 'bbb', data: JSON.stringify({ hello: 'world' }) })
+		console.log(ce1)
+
+		const ce2 = new Cloudevent({ ...ce1, source: 'new source', type: 'new-type', data: JSON.stringify({ new: 'text' }) })
+		console.log(ce2)
+	</script>
+</head>
+
+<body>
+	<h1>Hello world!</h1>
+</body>
+
+</html>

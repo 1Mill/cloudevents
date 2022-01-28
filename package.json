@@ -1,18 +1,22 @@
 {
   "name": "@1mill/cloudevents",
-  "version": "3.0.1",
+  "version": "4.0.0",
   "description": "Node cloudevents specification and helper",
   "jsnext:main": "dist/index.module.js",
-  "main": "dist/index.js",
+  "main": "dist/index.cjs",
   "module": "dist/index.module.js",
   "source": "src/index.js",
   "umd:main": "dist/index.umd.js",
+  "unpkg": "dist/index.umd.js",
+  "type": "module",
   "files": [
     "dist",
     "src"
   ],
   "scripts": {
-    "build": "rm -rf ./dist && microbundle",
+    "build": "rm -rf ./dist && npm run build:browser && npm run build:node",
+    "build:browser": "microbundle --format modern,umd --external none",
+    "build:node": "microbundle --format cjs,esm",
     "deploy": "npm run build && npm publish",
     "dev": "microbundle watch"
   },
@@ -26,9 +30,9 @@
     "url": "https://github.com/1mill/cloudevents.git"
   },
   "dependencies": {
-    "nanoid": "^3.1.25"
+    "nanoid": "^3.2.0"
   },
   "devDependencies": {
-    "microbundle": "^0.13.3"
+    "microbundle": "^0.14.2"
   }
 }

@@ -1,8 +1,8 @@
-const { nanoid } = require('nanoid')
+import { nanoid } from 'nanoid'
 
-const fetchNodeEnv = name => process && process.env && process.env[name]
+const fetchNodeEnv = name => (typeof process !== 'undefined') && process && process.env && process.env[name]
 
-class Cloudevent {
+export class Cloudevent {
 	constructor({
 		data,
 		datacontenttype,
@@ -67,5 +67,3 @@ class Cloudevent {
 		if (typeof this.origintype !== 'string') throw new Error('Cloudevent "origintype" must be a string')
 	}
 }
-
-module.exports = Object.freeze({ Cloudevent })
