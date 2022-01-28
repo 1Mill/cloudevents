@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid'
 
-const fetchNodeEnv = name => typeof(process !== 'undefined') && process && process.env && process.env[name]
+const fetchNodeEnv = name => (typeof process !== 'undefined') && process && process.env && process.env[name]
 
 export class Cloudevent {
 	constructor({
