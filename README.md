@@ -2,14 +2,24 @@
 
 ## Introduction
 
-This is an implementation and extention of the CloudEvents v1 specification to easily build cloudevents.
+This is an implementation and extention of the [CloudEvents v1 specification](https://github.com/cloudevents/spec) to easily build cloudevents with origin history.
 
-```bash
-npm install @1mill/cloudevents@^2
+
+## Install
+
+```html
+<script src="https://unpkg.com/@1mill/cloudevents@4.0.0/dist/index.umd.js">
 ```
 
-```js
-const { Cloudevent } = require('@1mill/cloudevents')
+or
+
+```bash
+npm install @1mill/cloudevents@^4
+```
+
+```node
+const { Cloudevent } = require('@1mill/cloudevents') // CommonJs
+import { Cloudevent } from '@1mill/cloudevents' // EMS
 
 const cloudevent = new Cloudevent({
   data: JSON.stringify({
