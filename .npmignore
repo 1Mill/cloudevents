@@ -1,10 +1,9 @@
-.dockerignore
+*.test.html
+*.test.js
 .editorconfig
 .gitattributes
 .gitignore
-Dockerfile
+CHANGELOG.md
 README.md
 docker-compose.yml
 node_modules
-unit.test.html
-unit.test.js

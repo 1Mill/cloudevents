@@ -1,12 +1,13 @@
+import { fetchNodeEnv } from './utils/fetchNodeEnv/index.js'
 import { nanoid } from 'nanoid'
-
-const fetchNodeEnv = name => (typeof process !== 'undefined') && process && process.env && process.env[name]
+import { setAttribute } from './utils/setAttribute/index.js'
 
 export class Cloudevent {
 	constructor({
 		data,
 		datacontenttype,
 		dataschema,
+		originatorid,
 		originid,
 		originsource,
 		origintime,
@@ -16,54 +17,58 @@ export class Cloudevent {
 		subject,
 		type,
 	}) {
-		// * Required fields by CloudEvent specification
-		this.id = nanoid(fetchNodeEnv('MILL_CLOUDEVENTS_NANOID_LENGTH') || 21)
-		if (!this.id) throw new Error('Cloudevent "id" is required')
-		if (typeof this.id !== 'string') throw new Error('Cloudevent "id" must be a string')
+		const cloudevent = this
 
-		this.source = source || fetchNodeEnv('MILL_CLOUDEVENTS_SOURCE')
-		if (!this.source) throw new Error('Cloudevent "source" is required')
-		if (typeof this.source !== 'string') throw new Error('Cloudevent "source" must be a string')
+		// *******
+		// * Required fields by Cloudevent v1 specification
+		const idValue = nanoid(fetchNodeEnv('MILL_CLOUDEVENTS_NANOID_LENGTH', 21))
+		setAttribute({ cloudevent, name: 'id', types: ['string'], value: idValue })
 
-		this.type = type
-		if (!this.type) throw new Error('Cloudevent "type" is required')
-		if (typeof this.type !== 'string') throw new Error('Cloudevent "type" must be a string')
+		const sourceValue = source || fetchNodeEnv('MILL_CLOUDEVENTS_SOURCE')
+		setAttribute({ cloudevent, name: 'source', types: ['string'], value: sourceValue })
 
-		this.specversion = specversion || '1.0'
-		if (!this.specversion) throw new Error('Cloudevent "specversion" is required')
-		if (typeof this.specversion !== 'string') throw new Error('Cloudevent "specversion" must be a string')
+		const typeValue = type
+		setAttribute({ cloudevent, name: 'type', types: ['string'], value: typeValue })
 
-		// * Optional fields by CloudEvent specification
-		this.data = data
+		const specversionValue = specversion || '1.0'
+		setAttribute({ cloudevent, name: 'specversion', types: ['string'], value: specversionValue })
 
-		this.datacontenttype = typeof this.data !== 'undefined'
+		const timeValue = new Date().toISOString()
+		setAttribute({ cloudevent, name: 'time', types: ['string'], value: timeValue })
+		// *******
+
+		// *******
+		// * Optional fields by Cloudevent v1 specification
+		setAttribute({ cloudevent, name: 'data', value: data })
+
+		const datacontenttypeValue = typeof data !== 'undefined'
 			? datacontenttype || 'application/json'
 			: datacontenttype
-		if (this.datacontenttype && typeof this.datacontenttype !== 'string') throw new Error('Cloudevent "datacontenttype" must be a string')
+		setAttribute({ cloudevent, name: 'datacontenttype', types: ['string', 'undefined'], value: datacontenttypeValue })
 
-		this.dataschema = dataschema
-		if (this.dataschema && typeof this.dataschema !== 'string') throw new Error('Cloudevent "dataschema" must be a string')
+		setAttribute({ cloudevent, name: 'dataschema', types: ['string', 'undefined'], value: dataschema })
 
-		this.subject = subject
-		if (this.subject && typeof this.subject !== 'string') throw new Error('Cloudevent "subject" must be a string')
+		setAttribute({ cloudevent, name: 'subject', types: ['string', 'undefined'], value: subject })
+		// *******
 
-		this.time = new Date().toISOString()
+		// *******
+		// * Required in-house extentions
+		const origintimeValue = origintime || timeValue
+		setAttribute({ cloudevent, name: 'origintime', types: ['string'], value: origintimeValue })
 
-		// * In-house extentions
-		this.origintime = origintime || this.time
-		if (!this.origintime) throw new Error('Cloudevent "origintime" is required')
-		if (typeof this.origintime !== 'string') throw new Error('Cloudevent "origintime" must be a string')
+		const originidValue = originid || idValue
+		setAttribute({ cloudevent, name: 'originid', types: ['string'], value: originidValue })
 
-		this.originid = originid || this.id
-		if (!this.originid) throw new Error('Cloudevent "originid" is required')
-		if (typeof this.originid !== 'string') throw new Error('Cloudevent "originid" must be a string')
+		const originsourceValue = originsource || sourceValue
+		setAttribute({ cloudevent, name: 'originsource', types: ['string'], value: originsourceValue })
 
-		this.originsource = originsource || this.source
-		if (!this.originsource) throw new Error('Cloudevent "originsource" is required')
-		if (typeof this.originsource !== 'string') throw new Error('Cloudevent "originsource" must be a string')
+		const origintypeValue = origintype || typeValue
+		setAttribute({ cloudevent, name: 'origintype', types: ['string'], value: origintypeValue })
+		// *******
 
-		this.origintype = origintype || this.type
-		if (!this.origintype) throw new Error('Cloudevent "origintype" is required')
-		if (typeof this.origintype !== 'string') throw new Error('Cloudevent "origintype" must be a string')
+		// *******
+		// * Optional in-house extentions
+		setAttribute({ cloudevent, name: 'originatorid', types: ['string', 'undefined'], value: originatorid })
+		// *******
 	}
 }
