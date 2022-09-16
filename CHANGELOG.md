@@ -1,5 +1,10 @@
 # Changelog for @1mill/cloudevents
 
+## 4.1.1
+
+* Improve formatting of code.
+* Update `README.md`.
+
 ## 4.1.0
 
 * Add new optional `originatorid` attribute.
