@@ -8,13 +8,23 @@
 	<script src="./dist/index.umd.js"></script>
 
 	<script>
-		const { Cloudevent } = cloudevents
+		const { Cloudevent } = window.cloudevents
 
-		const ce1 = new Cloudevent({ source: 'aaa', type: 'bbb', data: JSON.stringify({ hello: 'world' }) })
-		console.log(ce1)
+		const originCloudevent = new Cloudevent({
+			data: JSON.stringify({ some: 'payload' }),
+			source: 'https://github.com/1mill/cloudevents',
+			type: 'cmd.do-this-command.v0',
+			originatorid: 'user.id.1234',
+		});
+		console.log(originCloudevent)
 
-		const ce2 = new Cloudevent({ ...ce1, source: 'new source', type: 'new-type', data: JSON.stringify({ new: 'text' }) })
-		console.log(ce2)
+		const enrichedCloudevent = new Cloudevent({
+			...originCloudevent,
+			data: JSON.stringify({ new: 'payload', value: true }),
+			source: 'https://www.erikekberg.com/',
+			type: 'fct.this-thing-happened.v0',
+		});
+		console.log(enrichedCloudevent)
 	</script>
 </head>
 
