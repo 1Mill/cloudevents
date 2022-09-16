@@ -7,7 +7,7 @@ This is an implementation and extention of the [CloudEvents v1 specification](ht
 ## Install
 
 ```html
-<script src="https://unpkg.com/@1mill/cloudevents@4.0.0/dist/index.umd.js">
+<script src="https://unpkg.com/@1mill/cloudevents@4.1.1/dist/index.umd.js">
 ```
 
 or
