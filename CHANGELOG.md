@@ -1,5 +1,10 @@
 # Changelog for @1mill/cloudevents
 
+## 4.2.0
+
+* Add optional `wschannelid` attribute.
+* Fix unit test description.
+
 ## 4.1.1
 
 * Improve formatting of code.
@@ -7,7 +12,7 @@
 
 ## 4.1.0
 
-* Add new optional `originatorid` attribute.
+* Add optional `originatorid` attribute.
 * Add unit tests for every Cloudevent attribute (e.g. `id`, `data`, `originid`, etc.) using `mocha`, `sinon`, and `chai`.
 * Update `nanoid@^3.3.4`
 
