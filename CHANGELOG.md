@@ -4,6 +4,7 @@
 
 * Add new optional `originatorid` attribute.
 * Add unit tests for every Cloudevent attribute (e.g. `id`, `data`, `originid`, etc.) using `mocha`, `sinon`, and `chai`.
+* Update `nanoid@^3.3.4`
 
 ## 4.0.1
 
