@@ -83,6 +83,7 @@ console.log(enrichedCloudevent)
 | origintime       | yes       | String  | "time" property                      | "time" property is internally generated as part of the package                            |
 | origintype       | yes       | String  | "type" property                      |                                                                                           |
 | originatorid     |           | String  |                                      |                                                                                           |
+| wschannelid      |           | String  |                                      |                                                                                           |
 
 ## Release new version
 

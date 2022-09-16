@@ -16,6 +16,7 @@ export class Cloudevent {
 		specversion,
 		subject,
 		type,
+		wschannelid,
 	}) {
 		const cloudevent = this
 
@@ -132,6 +133,13 @@ export class Cloudevent {
 			name: 'originatorid',
 			types: ['string', 'undefined'],
 			value: originatorid
+		})
+
+		setAttribute({
+			cloudevent,
+			name: 'wschannelid',
+			types: ['string', 'undefined'],
+			value: wschannelid
 		})
 		// *******
 	}
