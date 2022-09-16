@@ -1,5 +1,9 @@
 # Changelog for @1mill/cloudevents
 
+## 4.2.1
+
+* Upgrade to `microbundle@^0.15.1`
+
 ## 4.2.0
 
 * Add optional `wschannelid` attribute.
