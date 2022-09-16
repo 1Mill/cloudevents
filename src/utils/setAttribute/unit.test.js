@@ -9,6 +9,15 @@ describe('setAttribute', () => {
 		cloudevent = {}
 	})
 
+	describe('when #types is empty', () => {
+		[1234, '1234', undefined].forEach(value => {
+			it('sets cloudevent[#name] to the input #value', () => {
+				setAttribute({ cloudevent, name, value })
+				expect(cloudevent[name]).to.eq(value)
+			})
+		})
+	})
+
 	describe('when #types is not empty', () => {
 		describe('when the type of #value is not in #types', () => {
 			it('throws the proper error', () => {
@@ -28,15 +37,6 @@ describe('setAttribute', () => {
 					setAttribute({ cloudevent, name, types, value })
 					expect(cloudevent[name]).to.eq(value)
 				})
-			})
-		})
-	})
-
-	describe('when #types is empty', () => {
-		[1234, '1234', undefined].forEach(value => {
-			it('sets cloudevent[#name] to the input #value', () => {
-				setAttribute({ cloudevent, name, value })
-				expect(cloudevent[name]).to.eq(value)
 			})
 		})
 	})
