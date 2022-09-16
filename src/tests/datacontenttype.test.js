@@ -55,6 +55,14 @@ describe('cloudevent#datacontenttype', () => {
 		describe('when #datacontenttype is input', () => {
 			const validValues = ['some-string', undefined]
 
+			describe(`when #datacontenttype is not of type ${validValues.map(item => typeof item).join(' or ')}`, () => {
+				it('throws the proper error', () => {
+					const expected = `Cloudevent "datacontenttype" must be of type STRING or UNDEFINED`
+					params.datacontenttype = 1234
+					expect(() => new Cloudevent(params)).to.throw(expected)
+				})
+			})
+
 			validValues.forEach(value => {
 				describe(`when #datacontenttype is a ${typeof value}`, () => {
 					it('returns the input value', () => {
@@ -62,14 +70,6 @@ describe('cloudevent#datacontenttype', () => {
 						const { datacontenttype } = new Cloudevent(params)
 						expect(datacontenttype).to.eq(params.datacontenttype)
 					})
-				})
-			})
-
-			describe(`when #datacontenttype is not of type ${validValues.map(item => typeof item).join(' or ')}`, () => {
-				it('throws the proper error', () => {
-					const expected = `Cloudevent "datacontenttype" must be of type STRING or UNDEFINED`
-					params.datacontenttype = 1234
-					expect(() => new Cloudevent(params)).to.throw(expected)
 				})
 			})
 		})

@@ -30,7 +30,7 @@ describe('cloudevent#originid', () => {
 		})
 
 		describe('when the input value is valid', () => {
-			it('sets cloudevent#originid to the input value', () => {
+			it('returns the input value', () => {
 				params.originid = 'some-origin-id'
 				const { originid } = new Cloudevent(params)
 				expect(originid).to.eq(params.originid)

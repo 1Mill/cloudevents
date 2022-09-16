@@ -29,7 +29,7 @@ describe('cloudevent#dataschema', () => {
 		})
 
 		describe('when the input value is valid', () => {
-			it('sets cloudevent#dataschema to the input value', () => {
+			it('returns the input value', () => {
 				params.dataschema = 'some-string'
 				const { dataschema } = new Cloudevent(params)
 				expect(dataschema).to.eq(params.dataschema)

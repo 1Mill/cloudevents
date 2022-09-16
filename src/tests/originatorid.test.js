@@ -13,7 +13,7 @@ describe('cloudevent#originatorid', () => {
 	})
 
 	describe('when #originatorid is not input', () => {
-		it('returns #id', () => {
+		it('returns undefined', () => {
 			const { originatorid } = new Cloudevent(params)
 			expect(originatorid).to.be.undefined
 		})
@@ -29,7 +29,7 @@ describe('cloudevent#originatorid', () => {
 		})
 
 		describe('when the input value is valid', () => {
-			it('sets cloudevent[originatorid] to the input value', () => {
+			it('returns the input value', () => {
 				params.originatorid = 'some-originator-id'
 				const { originatorid } = new Cloudevent(params)
 				expect(originatorid).to.eq(params.originatorid)

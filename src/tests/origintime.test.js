@@ -29,7 +29,7 @@ describe('cloudevent#origintime', () => {
 		})
 
 		describe('when the input value is valid', () => {
-			it('sets cloudevent#origintime to the input value', () => {
+			it('returns the input value', () => {
 				params.origintime = new Date().toISOString()
 				const { origintime } = new Cloudevent(params)
 				expect(origintime).to.eq(params.origintime)

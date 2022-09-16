@@ -30,7 +30,7 @@ describe('cloudevent#origintype', () => {
 		})
 
 		describe('when the input value is valtype', () => {
-			it('sets cloudevent#origintype to the input value', () => {
+			it('returns the input value', () => {
 				params.origintype = 'some-origin-type'
 				const { origintype } = new Cloudevent(params)
 				expect(origintype).to.eq(params.origintype)

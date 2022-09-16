@@ -21,7 +21,7 @@ describe('cloudevent#time', () => {
 		expect(time).to.be.a('string')
 	})
 
-	it('returns the current time formatted in ISO8601', () => {
+	it('returns the current datetime in ISO8601 format', () => {
 		const clock = useFakeTimers()
 
 		clock.tick(987654321) // * Jump into the future

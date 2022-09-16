@@ -29,7 +29,7 @@ describe('cloudevent#wschannelid', () => {
 		})
 
 		describe('when the input value is valid', () => {
-			it('sets cloudevent[wschannelid] to the input value', () => {
+			it('returns the input value', () => {
 				params.wschannelid = 'some-wschannel-id'
 				const { wschannelid } = new Cloudevent(params)
 				expect(wschannelid).to.eq(params.wschannelid)

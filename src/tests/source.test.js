@@ -32,7 +32,7 @@ describe('cloudevent#source', () => {
 		})
 
 		describe('when process.env.MILL_CLOUDEVENTS_SOURCE is input', () => {
-			it('returns the input input value', () => {
+			it('returns the input value', () => {
 				const expected = 'some-env-var-value'
 
 				const env = { MILL_CLOUDEVENTS_SOURCE: expected }

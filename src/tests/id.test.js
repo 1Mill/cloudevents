@@ -33,7 +33,7 @@ describe('cloudevent#id', () => {
 
 	describe('when process.env.MILL_CLOUDEVENTS_NANOID_LENGTH is input', () => {
 		it('returns a string with the proper length', () => {
-			const expected = '123'
+			const expected = 123
 
 			const env = { MILL_CLOUDEVENTS_NANOID_LENGTH: expected }
 			sandbox.stub(process, 'env').value(env)

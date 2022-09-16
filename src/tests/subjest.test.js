@@ -29,7 +29,7 @@ describe('cloudevent#subject', () => {
 		})
 
 		describe('when the input value is valid', () => {
-			it('sets cloudevent#subject to the input value', () => {
+			it('returns the input value', () => {
 				params.subject = 'some-string'
 				const { subject } = new Cloudevent(params)
 				expect(subject).to.eq(params.subject)
