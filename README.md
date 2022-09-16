@@ -4,7 +4,6 @@
 
 This is an implementation and extention of the [CloudEvents v1 specification](https://github.com/cloudevents/spec) to easily build cloudevents with origin history.
 
-
 ## Install
 
 ```html
