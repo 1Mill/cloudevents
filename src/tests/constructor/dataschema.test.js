@@ -1,4 +1,4 @@
-import { Cloudevent } from '../index.js'
+import { Cloudevent } from '../../index.js'
 import { expect } from 'chai'
 
 describe('cloudevent#dataschema', () => {

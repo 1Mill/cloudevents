@@ -1,7 +1,7 @@
 import chai, { expect } from 'chai'
 import chaiIso8601 from 'chai-iso8601'
 import chaiSubset from 'chai-subset'
-import { Cloudevent } from '../dist/index.cjs'
+import { Cloudevent } from './index.js'
 import { useFakeTimers } from 'sinon'
 
 chai.use(chaiIso8601)
@@ -49,7 +49,7 @@ describe('new Cloudevent', () => {
 		it('returns the expected cloudevent', () => {
 			clock.tick(987654321) // * Jump into the future
 
-			const originCloudevent = new Cloudevent({
+			const origin = new Cloudevent({
 				data: JSON.stringify({ some: 'data' }),
 				source: 'some-origin-source',
 				type: 'some-origin-type',
@@ -57,30 +57,22 @@ describe('new Cloudevent', () => {
 
 			clock.tick(123456789) // * Jump into the future
 
-			const data = undefined
-			const datacontenttype = undefined
 			const source = 'some-enrichment-source'
 			const time = new Date().toISOString()
 			const type = 'some-enrichment-type'
 
-			const cloudevent = new Cloudevent({
-				...originCloudevent,
-				data,
-				datacontenttype,
-				source,
-				type,
-
-			})
+			const cloudevent = new Cloudevent({ source, type }).origin({ cloudevent: origin })
 
 			clock.tick(987654321) // * Jump into the future
+
 			expect(cloudevent).to.containSubset({
-				data,
+				data: undefined,
 				datacontenttype: undefined,
 				dataschema: undefined,
-				originid: originCloudevent.id,
-				originsource: originCloudevent.source,
-				origintime: originCloudevent.time,
-				origintype: originCloudevent.type,
+				originid: origin.id,
+				originsource: origin.source,
+				origintime: origin.time,
+				origintype: origin.type,
 				source,
 				specversion: '1.0',
 				subject: undefined,

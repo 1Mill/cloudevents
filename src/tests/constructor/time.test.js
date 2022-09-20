@@ -1,6 +1,6 @@
 import chai, { expect } from 'chai'
 import chaiIso8601 from 'chai-iso8601'
-import { Cloudevent } from '../index.js'
+import { Cloudevent } from '../../index.js'
 import { useFakeTimers } from 'sinon'
 
 chai.use(chaiIso8601())

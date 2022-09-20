@@ -98,31 +98,12 @@ export class Cloudevent {
 
 		// *******
 		// * Required in-house extentions
-		const origintimeValue = origintime || timeValue
-		setAttribute({
+		this.origin({
 			cloudevent,
-			name: 'origintime',
-			types: ['string'],
-			value: origintimeValue
-		})
-
-		const originidValue = originid || idValue
-		setAttribute({
-			cloudevent,
-			name: 'originid',
-			types: ['string'],
-			value: originidValue
-		})
-
-		const originsourceValue = originsource || sourceValue
-		setAttribute({ cloudevent, name: 'originsource', types: ['string'], value: originsourceValue })
-
-		const origintypeValue = origintype || typeValue
-		setAttribute({
-			cloudevent,
-			name: 'origintype',
-			types: ['string'],
-			value: origintypeValue
+			originid,
+			originsource,
+			origintime,
+			origintype,
 		})
 		// *******
 
@@ -142,5 +123,43 @@ export class Cloudevent {
 			value: wschannelid
 		})
 		// *******
+	}
+
+	origin = ({ cloudevent = {}, originid, originsource, origintime, origintype }) => {
+		const ce = this
+
+		const originidValue = originid || cloudevent['originid'] || cloudevent['id']
+		setAttribute({
+			cloudevent: ce,
+			name: 'originid',
+			types: ['string'],
+			value: originidValue,
+		})
+
+		const originsourceValue = originsource || cloudevent['originsource'] || cloudevent['source']
+		setAttribute({
+			cloudevent: ce,
+			name: 'originsource',
+			types: ['string'],
+			value: originsourceValue,
+		})
+
+		const origintimeValue = origintime || cloudevent['origintime'] || cloudevent['time']
+		setAttribute({
+			cloudevent: ce,
+			name: 'origintime',
+			types: ['string'],
+			value: origintimeValue,
+		})
+
+		const origintypeValue = origintype || cloudevent['origintype'] || cloudevent['type']
+		setAttribute({
+			cloudevent: ce,
+			name: 'origintype',
+			types: ['string'],
+			value: origintypeValue,
+		})
+
+		return ce
 	}
 }

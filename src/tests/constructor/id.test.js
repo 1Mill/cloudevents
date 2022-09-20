@@ -1,4 +1,4 @@
-import { Cloudevent } from '../index.js'
+import { Cloudevent } from '../../index.js'
 import { createSandbox } from 'sinon'
 import { expect } from 'chai'
 
