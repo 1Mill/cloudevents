@@ -19,11 +19,10 @@
 		console.log(originCloudevent)
 
 		const enrichedCloudevent = new Cloudevent({
-			...originCloudevent,
 			data: JSON.stringify({ new: 'payload', value: true }),
 			source: 'https://www.erikekberg.com/',
 			type: 'fct.this-thing-happened.v0',
-		});
+		}).origin({ cloudevent: originCloudevent });
 		console.log(enrichedCloudevent)
 	</script>
 </head>
