@@ -10,20 +10,24 @@
 	<script>
 		const { Cloudevent } = window.cloudevents
 
-		const originCloudevent = new Cloudevent({
+		const cloudevent = new Cloudevent({
 			data: JSON.stringify({ some: 'payload' }),
 			source: 'https://github.com/1mill/cloudevents',
 			type: 'cmd.do-this-command.v0',
 			originatorid: 'user.id.1234',
 		});
-		console.log(originCloudevent)
+
+		console.log(cloudevent);
 
 		const enrichedCloudevent = new Cloudevent({
 			data: JSON.stringify({ new: 'payload', value: true }),
 			source: 'https://www.erikekberg.com/',
 			type: 'fct.this-thing-happened.v0',
-		}).origin({ cloudevent: originCloudevent });
-		console.log(enrichedCloudevent)
+		})
+		.origin({ cloudevent })
+		.wschannel({ wschannelid: 'some-prefix:my-resource-name#id=12345' });
+
+		console.log(enrichedCloudevent);
 	</script>
 </head>
 

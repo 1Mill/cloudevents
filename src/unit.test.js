@@ -60,8 +60,11 @@ describe('new Cloudevent', () => {
 			const source = 'some-enrichment-source'
 			const time = new Date().toISOString()
 			const type = 'some-enrichment-type'
+			const wschannelid = 'some-wschannel-id'
 
-			const cloudevent = new Cloudevent({ source, type }).origin({ cloudevent: origin })
+			const cloudevent = new Cloudevent({ source, type })
+				.origin({ cloudevent: origin })
+				.wschannel({ wschannelid })
 
 			clock.tick(987654321) // * Jump into the future
 
@@ -78,6 +81,7 @@ describe('new Cloudevent', () => {
 				subject: undefined,
 				time,
 				type,
+				wschannelid,
 			})
 		})
 	})

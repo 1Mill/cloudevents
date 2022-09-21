@@ -116,11 +116,9 @@ export class Cloudevent {
 			value: originatorid
 		})
 
-		setAttribute({
+		this.wschannel({
 			cloudevent,
-			name: 'wschannelid',
-			types: ['string', 'undefined'],
-			value: wschannelid
+			wschannelid,
 		})
 		// *******
 	}
@@ -158,6 +156,19 @@ export class Cloudevent {
 			name: 'origintype',
 			types: ['string'],
 			value: origintypeValue,
+		})
+
+		return ce
+	}
+
+	wschannel = ({ cloudevent = {}, wschannelid }) => {
+		const ce = this
+
+		setAttribute({
+			cloudevent: ce,
+			name: 'wschannelid',
+			types: ['string', 'undefined'],
+			value: wschannelid || cloudevent['wschannelid'],
 		})
 
 		return ce

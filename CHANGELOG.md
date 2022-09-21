@@ -1,5 +1,10 @@
 # Changelog for @1mill/cloudevents
 
+## 4.4.0
+
+* Add `cloudevent.wschannel({...})` instance method
+* Update `README.md`
+
 ## 4.3.0
 
 * Add `cloudevent.origin({...})` instance method
