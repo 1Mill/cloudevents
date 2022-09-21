@@ -14,8 +14,7 @@
 			data: JSON.stringify({ some: 'payload' }),
 			source: 'https://github.com/1mill/cloudevents',
 			type: 'cmd.do-this-command.v0',
-			originatorid: 'user.id.1234',
-		});
+		}).originator({ originatorid: 'user.id.1234' });
 
 		console.log(cloudevent);
 
@@ -25,6 +24,7 @@
 			type: 'fct.this-thing-happened.v0',
 		})
 		.origin({ cloudevent })
+		.originator({ cloudevent })
 		.wschannel({ wschannelid: 'some-prefix:my-resource-name#id=12345' });
 
 		console.log(enrichedCloudevent);

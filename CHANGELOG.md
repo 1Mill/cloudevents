@@ -1,5 +1,10 @@
 # Changelog for @1mill/cloudevents
 
+## 4.5.0
+
+* Add `cloudevent.originator({...})` instance method.
+* Improve unit tests for `cloudevent.wschannel({...})`.
+
 ## 4.4.1
 
 * Use `const ce = this` in constructor to cosmetically match instance method declarations.

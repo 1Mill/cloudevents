@@ -21,55 +21,55 @@ const { Cloudevent } = require('@1mill/cloudevents') // CommonJs
 import { Cloudevent } from '@1mill/cloudevents' // EMS
 
 const cloudevent = new Cloudevent({
-  data: JSON.stringify({ some: 'payload' }),
-  source: 'https://github.com/1mill/cloudevents',
-  type: 'cmd.do-this-command.v0',
-  originatorid: 'user.id.1234',
-})
+ data: JSON.stringify({ some: 'payload' }),
+ source: 'https://github.com/1mill/cloudevents',
+ type: 'cmd.do-this-command.v0',
+}).originator({ originatorid: 'user.id.1234' })
 
 console.log(cloudevent)
 // {
-//   id: 'tEzBztYRlPAaGY3uWIVWI',
+//   id: 'g-wea_sYvxmvsGeL3YCSM',
 //   source: 'https://github.com/1mill/cloudevents',
 //   type: 'cmd.do-this-command.v0',
 //   specversion: '1.0',
-//   time: '2022-09-21T03:58:36.995Z',
+//   time: '2022-09-21T04:27:10.729Z',
 //   data: '{"some":"payload"}',
 //   datacontenttype: 'application/json',
 //   dataschema: undefined,
 //   subject: undefined,
-//   originid: 'tEzBztYRlPAaGY3uWIVWI',
+//   originid: 'g-wea_sYvxmvsGeL3YCSM',
 //   originsource: 'https://github.com/1mill/cloudevents',
-//   origintime: '2022-09-21T03:58:36.995Z',
+//   origintime: '2022-09-21T04:27:10.729Z',
 //   origintype: 'cmd.do-this-command.v0',
 //   originatorid: 'user.id.1234',
 //   wschannelid: undefined
 // }
 
 const enrichedCloudevent = new Cloudevent({
-  data: JSON.stringify({ new: 'payload', value: true }),
-  source: 'https://www.erikekberg.com/',
-  type: 'fct.this-thing-happened.v0',
+ data: JSON.stringify({ new: 'payload', value: true }),
+ source: 'https://www.erikekberg.com/',
+ type: 'fct.this-thing-happened.v0',
 })
 .origin({ cloudevent })
+.originator({ cloudevent })
 .wschannel({ wschannelid: 'some-prefix:my-resource-name#id=12345' })
 
 console.log(enrichedCloudevent)
 // {
-//   id: '4_7YyYMjm-YPE3f20B1Ow',
+//   id: 'zojPIW1eMm_JsvQI5VnfR',
 //   source: 'https://www.erikekberg.com/',
 //   type: 'fct.this-thing-happened.v0',
 //   specversion: '1.0',
-//   time: '2022-09-21T03:58:37.005Z',
+//   time: '2022-09-21T04:27:10.740Z',
 //   data: '{"new":"payload","value":true}',
 //   datacontenttype: 'application/json',
 //   dataschema: undefined,
 //   subject: undefined,
-//   originid: 'tEzBztYRlPAaGY3uWIVWI',
+//   originid: 'g-wea_sYvxmvsGeL3YCSM',
 //   originsource: 'https://github.com/1mill/cloudevents',
-//   origintime: '2022-09-21T03:58:36.995Z',
+//   origintime: '2022-09-21T04:27:10.729Z',
 //   origintype: 'cmd.do-this-command.v0',
-//   originatorid: undefined,
+//   originatorid: 'user.id.1234',
 //   wschannelid: 'some-prefix:my-resource-name#id=12345'
 // }
 ```
@@ -120,6 +120,34 @@ const cloudevent = new Cloudevent({
   source: 'my-enrichment-service',
   type: 'fct.said-hello.v0',
 }).origin({ cloudevent: originCloudevent })
+```
+
+### originator
+
+Add `originator` attributes to a Cloudevent manually
+
+```node
+const cloudevent = new Cloudevent({
+  source: 'my-source',
+  type: 'my-type',
+})
+.originator({ originatorid: 'employee#id=12345' })
+```
+
+or populate them automatically by passing in an existing Cloudevent
+
+```node
+const originCloudevent = new Cloudevent({
+  source: 'my-origin-cloudevent',
+  type: 'cmd.say-hello.v0'
+})
+.originator({ originatorid: 'employee#id=12345' })
+
+const cloudevent = new Cloudevent({
+  data: JSON.stringify({ message: 'Hello world!' }),
+  source: 'my-enrichment-service',
+  type: 'fct.said-hello.v0',
+}).originator({ cloudevent: originCloudevent })
 ```
 
 ### wschannel

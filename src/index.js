@@ -109,11 +109,9 @@ export class Cloudevent {
 
 		// *******
 		// * Optional in-house extentions
-		setAttribute({
+		this.originator({
 			cloudevent: ce,
-			name: 'originatorid',
-			types: ['string', 'undefined'],
-			value: originatorid
+			originatorid,
 		})
 
 		this.wschannel({
@@ -156,6 +154,19 @@ export class Cloudevent {
 			name: 'origintype',
 			types: ['string'],
 			value: origintypeValue,
+		})
+
+		return ce
+	}
+
+	originator = ({ cloudevent = {}, originatorid }) => {
+		const ce = this
+
+		setAttribute({
+			cloudevent: ce,
+			name: 'originatorid',
+			types: ['string', 'undefined'],
+			value: originatorid || cloudevent['originatorid'],
 		})
 
 		return ce
