@@ -1,5 +1,9 @@
 # Changelog for @1mill/cloudevents
 
+## 4.4.1
+
+* Use `const ce = this` in constructor to cosmetically match instance method declarations.
+
 ## 4.4.0
 
 * Add `cloudevent.wschannel({...})` instance method

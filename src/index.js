@@ -18,13 +18,13 @@ export class Cloudevent {
 		type,
 		wschannelid,
 	}) {
-		const cloudevent = this
+		const ce = this
 
 		// *******
 		// * Required fields by Cloudevent v1 specification
 		const idValue = nanoid(fetchNodeEnv('MILL_CLOUDEVENTS_NANOID_LENGTH', 21))
 		setAttribute({
-			cloudevent,
+			cloudevent: ce,
 			name: 'id',
 			types: ['string'],
 			value: idValue
@@ -32,7 +32,7 @@ export class Cloudevent {
 
 		const sourceValue = source || fetchNodeEnv('MILL_CLOUDEVENTS_SOURCE')
 		setAttribute({
-			cloudevent,
+			cloudevent: ce,
 			name: 'source',
 			types: ['string'],
 			value: sourceValue
@@ -40,7 +40,7 @@ export class Cloudevent {
 
 		const typeValue = type
 		setAttribute({
-			cloudevent,
+			cloudevent: ce,
 			name: 'type',
 			types: ['string'],
 			value: typeValue
@@ -48,7 +48,7 @@ export class Cloudevent {
 
 		const specversionValue = specversion || '1.0'
 		setAttribute({
-			cloudevent,
+			cloudevent: ce,
 			name: 'specversion',
 			types: ['string'],
 			value: specversionValue
@@ -56,7 +56,7 @@ export class Cloudevent {
 
 		const timeValue = new Date().toISOString()
 		setAttribute({
-			cloudevent,
+			cloudevent: ce,
 			name: 'time',
 			types: ['string'],
 			value: timeValue
@@ -66,7 +66,7 @@ export class Cloudevent {
 		// *******
 		// * Optional fields by Cloudevent v1 specification
 		setAttribute({
-			cloudevent,
+			cloudevent: ce,
 			name: 'data',
 			value: data
 		})
@@ -75,21 +75,21 @@ export class Cloudevent {
 			? datacontenttype || 'application/json'
 			: datacontenttype
 		setAttribute({
-			cloudevent,
+			cloudevent: ce,
 			name: 'datacontenttype',
 			types: ['string', 'undefined'],
 			value: datacontenttypeValue
 		})
 
 		setAttribute({
-			cloudevent,
+			cloudevent: ce,
 			name: 'dataschema',
 			types: ['string', 'undefined'],
 			value: dataschema
 		})
 
 		setAttribute({
-			cloudevent,
+			cloudevent: ce,
 			name: 'subject',
 			types: ['string', 'undefined'],
 			value: subject
@@ -99,7 +99,7 @@ export class Cloudevent {
 		// *******
 		// * Required in-house extentions
 		this.origin({
-			cloudevent,
+			cloudevent: ce,
 			originid,
 			originsource,
 			origintime,
@@ -110,14 +110,14 @@ export class Cloudevent {
 		// *******
 		// * Optional in-house extentions
 		setAttribute({
-			cloudevent,
+			cloudevent: ce,
 			name: 'originatorid',
 			types: ['string', 'undefined'],
 			value: originatorid
 		})
 
 		this.wschannel({
-			cloudevent,
+			cloudevent: ce,
 			wschannelid,
 		})
 		// *******
