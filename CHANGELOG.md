@@ -1,5 +1,11 @@
 # Changelog for @1mill/cloudevents
 
+## 4.6.0
+
+* Add `cloudevent.originactor` attribute and support in `cloudevent.origin({...})` instance method.
+* Depricate `cloudevent.originator({...})` instance method.
+* Depricate `cloudevent.originatorid` attribute.
+
 ## 4.5.0
 
 * Add `cloudevent.originator({...})` instance method.

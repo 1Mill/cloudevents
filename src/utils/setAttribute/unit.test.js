@@ -1,5 +1,9 @@
+import chai, { expect } from 'chai'
+import sinon from 'sinon'
+import sinonChai from 'sinon-chai'
 import { setAttribute } from './index.js'
-import { expect } from 'chai'
+
+chai.use(sinonChai)
 
 describe('setAttribute', () => {
 	const name = 'some-name'
@@ -7,6 +11,26 @@ describe('setAttribute', () => {
 
 	beforeEach(() => {
 		cloudevent = {}
+		sinon.spy(console, 'warn')
+	})
+
+	afterEach(() => {
+		console.warn.restore()
+	})
+
+	describe('when #deprecated is true', () => {
+		it('calls console.warn with the proper warning', () => {
+			setAttribute({ cloudevent, deprecated: true, name })
+			const expected = `Cloudevent "${name}" is depricated`
+			expect(console.warn).to.have.been.calledWith(expected)
+		})
+	})
+
+	describe('when #deprecated is false', () => {
+		it ('does not call console.warn', () => {
+			setAttribute({ cloudevent, deprecated: false, name })
+			expect(console.warn).to.have.not.been.called
+		})
 	})
 
 	describe('when #types is empty', () => {

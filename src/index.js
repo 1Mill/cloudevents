@@ -7,6 +7,7 @@ export class Cloudevent {
 		data,
 		datacontenttype,
 		dataschema,
+		originactor,
 		originatorid,
 		originid,
 		originsource,
@@ -100,6 +101,7 @@ export class Cloudevent {
 		// * Required in-house extentions
 		this.origin({
 			cloudevent: ce,
+			originactor,
 			originid,
 			originsource,
 			origintime,
@@ -121,8 +123,16 @@ export class Cloudevent {
 		// *******
 	}
 
-	origin = ({ cloudevent = {}, originid, originsource, origintime, origintype }) => {
+	origin = ({ cloudevent = {}, originactor, originid, originsource, origintime, origintype }) => {
 		const ce = this
+
+		const originactorValue = originactor || cloudevent['originactor']
+		setAttribute({
+			cloudevent: ce,
+			name: 'originactor',
+			types: ['string', 'undefined'],
+			value: originactorValue,
+		})
 
 		const originidValue = originid || cloudevent['originid'] || cloudevent['id']
 		setAttribute({

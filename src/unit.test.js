@@ -50,6 +50,7 @@ describe('new Cloudevent', () => {
 			clock.tick(987654321) // * Jump into the future
 
 			const origin = new Cloudevent({
+				originactor: 'some-originactor',
 				source: 'some-origin-source',
 				type: 'some-origin-type',
 			})
@@ -57,7 +58,6 @@ describe('new Cloudevent', () => {
 			clock.tick(123456789) // * Jump into the future
 
 			const data = JSON.stringify({ some: 'data' })
-			const originatorid = 'some-originator-id'
 			const source = 'some-enrichment-source'
 			const time = new Date().toISOString()
 			const type = 'some-enrichment-type'
@@ -65,7 +65,6 @@ describe('new Cloudevent', () => {
 
 			const cloudevent = new Cloudevent({ data, source, type })
 				.origin({ cloudevent: origin })
-				.originator({ originatorid })
 				.wschannel({ wschannelid })
 
 
@@ -75,7 +74,7 @@ describe('new Cloudevent', () => {
 				data,
 				datacontenttype: 'application/json',
 				dataschema: undefined,
-				originatorid,
+				originactor: origin.originactor,
 				originid: origin.id,
 				originsource: origin.source,
 				origintime: origin.time,
