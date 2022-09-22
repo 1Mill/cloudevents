@@ -1,5 +1,9 @@
 # Changelog for @1mill/cloudevents
 
+## 4.6.1
+
+* Fix spelling in `README.md`
+
 ## 4.6.0
 
 * Add `cloudevent.originactor` attribute and support in `cloudevent.origin({...})` instance method.
