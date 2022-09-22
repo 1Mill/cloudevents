@@ -90,7 +90,7 @@ console.log(enrichedCloudevent)
 | originsource     |           | String  | "source" property                    |                                                                                           |
 | origintime       |           | String  | "time" property                      | "time" property is internally generated as part of the package                            |
 | origintype       |           | String  | "type" property                      |                                                                                           |
-| originatorid     |           | String  |                                      | Depricated in favor of "originactor"                                                      |
+| originatorid     |           | String  |                                      | Deprecated in favor of "originactor"                                                      |
 | wschannelid      |           | String  |                                      |                                                                                           |
 
 ### origin
