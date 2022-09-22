@@ -103,6 +103,7 @@ const cloudevent = new Cloudevent({
   type: 'my-type',
 })
 .origin({
+  originactor: 'my-origin-actor',
   originid: 'my-origin-id',
   originsource: 'my-origin-source',
   origintime: 'my-origin-time',
@@ -115,7 +116,8 @@ or populate them automatically by passing in an existing Cloudevent
 ```node
 const originCloudevent = new Cloudevent({
   source: 'my-origin-cloudevent',
-  type: 'cmd.say-hello.v0'
+  type: 'cmd.say-hello.v0',
+  originactor: 'my-origin-actor',
 })
 
 const cloudevent = new Cloudevent({
@@ -123,34 +125,6 @@ const cloudevent = new Cloudevent({
   source: 'my-enrichment-service',
   type: 'fct.said-hello.v0',
 }).origin({ cloudevent: originCloudevent })
-```
-
-### originator
-
-Add `originator` attributes to a Cloudevent manually
-
-```node
-const cloudevent = new Cloudevent({
-  source: 'my-source',
-  type: 'my-type',
-})
-.originator({ originatorid: 'employee#id=12345' })
-```
-
-or populate them automatically by passing in an existing Cloudevent
-
-```node
-const originCloudevent = new Cloudevent({
-  source: 'my-origin-cloudevent',
-  type: 'cmd.say-hello.v0'
-})
-.originator({ originatorid: 'employee#id=12345' })
-
-const cloudevent = new Cloudevent({
-  data: JSON.stringify({ message: 'Hello world!' }),
-  source: 'my-enrichment-service',
-  type: 'fct.said-hello.v0',
-}).originator({ cloudevent: originCloudevent })
 ```
 
 ### wschannel
