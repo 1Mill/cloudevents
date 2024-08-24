@@ -1,8 +1,14 @@
 # Changelog for @1mill/cloudevents
 
+## 4.7.1
+
+* Update `nanoid` from `^3.3.4` to `^3.3.7`.
+* Move `sinon-chai` to `devDependencies`.
+* Update various `devDependencies`.
+
 ## 4.6.1
 
-* Fix spelling in `README.md`
+* Fix spelling in `README.md`.
 
 ## 4.6.0
 
