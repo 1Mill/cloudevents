@@ -1,5 +1,17 @@
 # Changelog for @1mill/cloudevents
 
+## 5.0.0
+
+* Add optional `actor` attribute to supplement existing `originactor` attribute.
+
+### Breaking changes
+
+* JSON stringify `data` by default unless `datacontenttype` is input.
+  * `datacontenttype` already defauls to `application/json` if `data` is not `undefined` and no `datacontentype` is provided.
+* Remove `originator({ ... })` instance method.
+* Remove `originatorid` attribute.
+* Update `nanoid` from `^3.3.4` to `^5.0.7`, requiring `"node": "^18 || >=20"`.
+
 ## 4.6.3
 
 * Update `README` to better reflect deployment process

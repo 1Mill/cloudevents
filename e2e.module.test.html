@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="./dist/bundle-browser/cloudevents.esm.js" type="module"></script>
+
+	<script type="module">
+		import { Cloudevent } from './dist/bundle-browser/cloudevents.esm.js'
+
+		const cloudevent = new Cloudevent({
+			data: { some: 'payload' },
+			source: 'https://github.com/1mill/cloudevents',
+			type: 'cmd.do-this-command.v0',
+		})
+
+		console.log(cloudevent);
+
+		await new Promise(resolve => setTimeout(resolve, 3000));
+
+		const enrichedCloudevent = new Cloudevent({
+			actor: 'user#1234',
+			data: { new: 'payload', value: true },
+			origin: cloudevent,
+			source: 'https://www.erikekberg.com/',
+			subject: 'project#4321',
+			type: 'fct.this-thing-happened.v0',
+			wschannelid: 'some-prefix:my-resource-name#id=12345',
+		})
+
+		console.log(enrichedCloudevent);
+	</script>
+</head>
+
+<body>
+	<h1>Hello world!</h1>
+</body>
+
+</html>

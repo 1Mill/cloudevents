@@ -2,25 +2,32 @@
   "name": "@1mill/cloudevents",
   "version": "4.6.3",
   "description": "Node cloudevents specification and helper",
-  "jsnext:main": "dist/index.module.js",
-  "main": "dist/index.cjs",
-  "module": "dist/index.module.js",
-  "source": "src/index.js",
-  "umd:main": "dist/index.umd.js",
-  "unpkg": "dist/index.umd.js",
+  "source": "./src/index.ts",
   "type": "module",
-  "files": [
-    "dist",
-    "src"
-  ],
+  "exports": {
+    "import": "./dist/bundle-node/cloudevents.esm.js",
+    "require": "./dist/bundle-node/cloudevents.cjs",
+    "types": "./dist/index.d.ts",
+    "default": "./dist/bundle-browser/cloudevents.esm.js"
+  },
+  "main": "./dist/bundle-node/cloudevents.cjs",
+  "module": "./dist/bundle-node/cloudevents.esm.js",
+  "types": "./dist/index.d.ts",
+  "umd:main": "./dist/bundle-browser/cloudevents.umd.js",
   "scripts": {
     "build": "rm -rf ./dist && npm run build:browser && npm run build:node",
-    "build:browser": "microbundle --format modern,umd --external none",
-    "build:node": "microbundle --format cjs,esm",
+    "build:browser": "microbundle --format modern,umd --external none --output ./dist/bundle-browser",
+    "build:node": "npm run build:node:module && npm run build:node:commonjs",
+    "build:node:commonjs": "microbundle --format cjs --external none --output ./dist/bundle-node",
+    "build:node:module": "microbundle --format esm --output ./dist/bundle-node",
     "deploy": "npm run build && npm publish",
     "dev": "microbundle watch",
-    "test:unit": "mocha \"src/**/*.test.js\" --recursive"
+    "test": "npm run test:unit",
+    "test:unit": "ts-mocha"
   },
+  "files": [
+    "./dist"
+  ],
   "homepage": "https://github.com/1mill/cloudevents",
   "bugs": {
     "url": "https://github.com/1mill/cloudevents/issues"
@@ -34,15 +41,24 @@
     "url": "git+https://github.com/1mill/cloudevents.git"
   },
   "dependencies": {
-    "nanoid": "^3.3.7"
+    "nanoid": "^5.0.7"
   },
   "devDependencies": {
+    "@types/chai": "^4.3.17",
+    "@types/chai-subset": "^1.3.5",
+    "@types/mocha": "^10.0.7",
+    "@types/node": "^22.5.1",
+    "@types/sinon": "^17.0.3",
+    "@types/sinon-chai": "^3.2.12",
     "chai": "^4.5.0",
     "chai-iso8601": "^1.0.0",
     "chai-subset": "^1.6.0",
     "microbundle": "^0.15.1",
     "mocha": "^10.7.3",
     "sinon": "^14.0.2",
-    "sinon-chai": "^3.7.0"
+    "sinon-chai": "^3.7.0",
+    "ts-mocha": "^10.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
   }
 }
