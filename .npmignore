@@ -1,6 +1,7 @@
 *.test.html
 *.test.js
 .editorconfig
+.env
 .gitattributes
 .gitignore
 CHANGELOG.md

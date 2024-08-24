@@ -2,3 +2,5 @@ debug.log
 
 dist
 node_modules
+
+.env

@@ -157,7 +157,7 @@ const cloudevent = new Cloudevent({
 
 ## Release new version
 
-```bash
-npm version <major|minor|patch>
-npm run depoy
-```
+1. Create `.env` and add NPM_TOKEN=...
+2. Run `docker compose run node`
+3. In the container, run `npm version <major|minor|patch>`
+4. In the container, run `npm run deploy`

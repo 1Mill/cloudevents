@@ -1,6 +1,10 @@
 # Changelog for @1mill/cloudevents
 
-## 4.7.1
+## 4.6.3
+
+* Update `README` to better reflect deployment process
+
+## 4.6.2
 
 * Update `nanoid` from `^3.3.4` to `^3.3.7`.
 * Move `sinon-chai` to `devDependencies`.
