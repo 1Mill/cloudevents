@@ -1,6 +1,6 @@
 {
   "name": "@1mill/cloudevents",
-  "version": "4.6.3",
+  "version": "5.0.0",
   "description": "Node cloudevents specification and helper",
   "source": "./src/index.ts",
   "type": "module",
