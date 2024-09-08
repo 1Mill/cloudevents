@@ -1,9 +1,10 @@
+import chai, { expect } from 'chai'
+import chaiString from 'chai-string'
 import { Cloudevent, CloudeventProps } from '../../index.js'
-import { createSandbox } from 'sinon'
-import { expect } from 'chai'
+
+chai.use(chaiString)
 
 describe('cloudevent#id', () => {
-	const sandbox = createSandbox()
 	let params: CloudeventProps
 
 	beforeEach(() => {
@@ -13,25 +14,13 @@ describe('cloudevent#id', () => {
 		}
 	})
 
-	afterEach(() => { sandbox.restore() })
-
-	describe('when process.env.MILL_CLOUDEVENTS_NANOID_LENGTH is not input', () => {
-		it('returns a string with the default length', () => {
-			sandbox.stub(process, 'env').value({})
-			const { id } = new Cloudevent(params)
-			expect(id).to.have.lengthOf(21)
-		})
+	it('returns with a "ce_" prefix', () => {
+		const { id } = new Cloudevent(params)
+		expect(id).to.startWith('ce_')
 	})
 
-	describe('when process.env.MILL_CLOUDEVENTS_NANOID_LENGTH is input', () => {
-		it('returns a string with the input length', () => {
-			const expected = 123
-
-			const env = { MILL_CLOUDEVENTS_NANOID_LENGTH: expected }
-			sandbox.stub(process, 'env').value(env)
-
-			const { id } = new Cloudevent(params)
-			expect(id).to.have.lengthOf(expected)
-		})
+	it('returns with a length of 36', () => {
+		const { id } = new Cloudevent(params)
+		expect(id).to.have.lengthOf(36)
 	})
 })

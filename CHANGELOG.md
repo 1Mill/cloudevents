@@ -1,5 +1,11 @@
 # Changelog for @1mill/cloudevents
 
+## 5.1.0
+
+* Add `ce_` prefix to `id` attribute.
+* Downgrade `nanoid` from `^5.0.7` to `^3.3.4` to make commonjs compatability easier.
+* Increase `id` attribute length from `21` to `36` to match character length of UUID v4 and reduce collision changes.
+
 ## 5.0.0
 
 * Add optional `actor` attribute.
@@ -11,6 +17,7 @@
 * Remove `originactor` attribute.
 * Remove `originator({ ... })` instance method.
 * Remove `originatorid` attribute.
+* Remove `process.env.MILL_CLOUDEVENTS_NANOID_LENGTH` support.
 * Remove `wschannel({ ... })` instance method.
 * Update `nanoid` from `^3.3.4` to `^5.0.7`, requiring `"node": "^18 || >=20"`.
 

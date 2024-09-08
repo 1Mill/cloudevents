@@ -56,7 +56,7 @@ export class Cloudevent {
 	}: CloudeventProps) {
 		// *******
 		// * Required fields by Cloudevent v1 specification
-		const idValue = nanoid(fetchNodeEnv('MILL_CLOUDEVENTS_NANOID_LENGTH', 21))
+		const idValue = 'ce_' + nanoid(33)
 		this.id = validateAttribute({
 			name: 'id',
 			permitted: [Permitted.STRING],
