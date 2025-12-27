@@ -1,6 +1,6 @@
 {
   "name": "@1mill/cloudevents",
-  "version": "5.1.2",
+  "version": "6.0.0",
   "description": "Node cloudevents specification and helper",
   "source": "./src/index.ts",
   "type": "module",
@@ -39,7 +39,7 @@
     "url": "git+https://github.com/1mill/cloudevents.git"
   },
   "dependencies": {
-    "nanoid": "^3.3.7"
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
     "@types/chai": "^4.3.17",

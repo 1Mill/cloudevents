@@ -19,8 +19,8 @@ describe('cloudevent#id', () => {
 		expect(id).to.startWith('ce_')
 	})
 
-	it('returns with a length of 36', () => {
+	it('returns with a length of 39', () => {
 		const { id } = new Cloudevent(params)
-		expect(id).to.have.lengthOf(36)
+		expect(id).to.have.lengthOf(39)
 	})
 })

@@ -1,6 +1,6 @@
 import { Permitted, validateAttribute } from './validateAttribute.js'
 import { fetchNodeEnv } from './fetchNodeEnv.js'
-import { nanoid } from 'nanoid'
+import { v7 as uuidv7 } from 'uuid'
 
 export interface CloudeventProps {
 	// * Cloudevent v1 props
@@ -56,7 +56,7 @@ export class Cloudevent {
 	}: CloudeventProps) {
 		// *******
 		// * Required fields by Cloudevent v1 specification
-		const idValue = 'ce_' + nanoid(33)
+		const idValue = `ce_${uuidv7()}`
 		this.id = validateAttribute({
 			name: 'id',
 			permitted: [Permitted.STRING],

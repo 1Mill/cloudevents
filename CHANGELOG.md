@@ -1,14 +1,18 @@
 # Changelog for @1mill/cloudevents
 
+## 6.0.0
+
+* Replace `nanoid`, which generaetes unordered identifiers akin to UUID v4, with `uuid` which implements UUID v7 to generate time ordered identifiers to help with database b-tree indexing.
+
 ## 5.1.2
 
-* Update all packages with `npm update`
+* Update all packages with `npm update`.
 
 ## 5.1.1
 
-* Update `node` build environment from `20` to `22`
-* Update packages via `npm audit fix`
-* Update `caniuse-lite` from `1.0.30001651` to `1.0.30001761`
+* Update `node` build environment from `20` to `22`.
+* Update packages via `npm audit fix`.
+* Update `caniuse-lite` from `1.0.30001651` to `1.0.30001761`.
 
 ## 5.1.0
 
@@ -33,7 +37,7 @@
 
 ## 4.6.3
 
-* Update `README` to better reflect deployment process
+* Update `README` to better reflect deployment process.
 
 ## 4.6.2
 
@@ -62,17 +66,17 @@
 
 ## 4.4.0
 
-* Add `cloudevent.wschannel({...})` instance method
-* Update `README.md`
+* Add `cloudevent.wschannel({...})` instance method.
+* Update `README.md`.
 
 ## 4.3.0
 
-* Add `cloudevent.origin({...})` instance method
-* Update `README.md`
+* Add `cloudevent.origin({...})` instance method.
+* Update `README.md`.
 
 ## 4.2.1
 
-* Upgrade to `microbundle@^0.15.1`
+* Upgrade to `microbundle@^0.15.1`.
 
 ## 4.2.0
 
@@ -88,7 +92,7 @@
 
 * Add optional `originatorid` attribute.
 * Add unit tests for every Cloudevent attribute (e.g. `id`, `data`, `originid`, etc.) using `mocha`, `sinon`, and `chai`.
-* Update `nanoid@^3.3.4`
+* Update `nanoid@^3.3.4`.
 
 ## 4.0.1
 
