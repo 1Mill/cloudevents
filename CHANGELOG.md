@@ -1,5 +1,11 @@
 # Changelog for @1mill/cloudevents
 
+## 5.1.1
+
+* Update `node` build environment from `20` to `22`
+* Update packages via `npm audit fix`
+* Update `caniuse-lite` from `1.0.30001651` to `1.0.30001761`
+
 ## 5.1.0
 
 * Add `ce_` prefix to `id` attribute.
