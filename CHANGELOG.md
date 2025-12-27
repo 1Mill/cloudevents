@@ -1,5 +1,9 @@
 # Changelog for @1mill/cloudevents
 
+## 5.1.2
+
+* Update all packages with `npm update`
+
 ## 5.1.1
 
 * Update `node` build environment from `20` to `22`
