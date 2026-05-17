@@ -1,8 +1,13 @@
 # Changelog for @1mill/cloudevents
 
+## 6.0.1
+
+* Update `node` build environment from `22` to `24`.
+* Update packages with `npm-check-updates --target semver -u` because `npm update` adds breaking changes when addressing security vulnerabilities.
+
 ## 6.0.0
 
-* Replace `nanoid`, which generaetes unordered identifiers akin to UUID v4, with `uuid` which implements UUID v7 to generate time ordered identifiers to help with database b-tree indexing.
+* Replace `nanoid`, which generates unordered identifiers akin to UUID v4, with `uuid` which implements UUID v7 to generate time ordered identifiers to help with database b-tree indexing.
 
 ## 5.1.2
 
