@@ -1,5 +1,16 @@
 # Changelog for @1mill/cloudevents
 
+## 7.0.0
+
+* Add `parentid` which identifies the immediate parent event.
+
+### Breaking changes
+
+* Replace `microbundler^0.15.1` with `rollup@^4.60.4` as package bundler.
+* Remove `originsource`, `origintime`, and `origintype`.
+* Replace `cloudevent.origin(...)` with `cloudevent.parent(...)`.
+* Replace `originid` with `parentrootid` which identifies the root event.
+
 ## 6.0.2
 
 * Change `tsconfig.json` `moduleResolution` value from depricated `'Node'` to `'bundler'`.

@@ -2,72 +2,77 @@ import { Permitted, validateAttribute } from './validateAttribute.js'
 import { fetchNodeEnv } from './fetchNodeEnv.js'
 import { v7 as uuidv7 } from 'uuid'
 
-export interface CloudeventProps {
-	// * Cloudevent v1 props
-	data?: Cloudevent['data']
-	datacontenttype?: Cloudevent['datacontenttype']
-	dataschema?: Cloudevent['dataschema']
-	source?: Cloudevent['source']
-	specversion?: Cloudevent['specversion']
-	subject?: Cloudevent['subject']
-	type: Cloudevent['type']
-
-	// * In-house extension props
-	actor?: Cloudevent['actor']
-	wschannelid?: Cloudevent['wschannelid']
-
-	// * In-house helpers
-	origin?: Cloudevent
-}
-
-export class Cloudevent {
-	// * Cloudevents v1 fields
-	readonly data?: any
-	readonly datacontenttype?: string
-	readonly dataschema?: string
-	readonly id: string
-	readonly source: string
-	readonly specversion: string
-	readonly subject?: string
-	readonly time: string
-	readonly type: string
+export interface CloudeventState {
+	// * Cloudevent v1 fields
+	data?: unknown
+	datacontenttype?: string
+	dataschema?: string
+	id: string
+	source: string
+	specversion: string
+	subject?: string
+	time: string
+	type: string
 
 	// * In-house extensions
-	readonly actor?: string
-	readonly wschannelid?: string
+	actor?: string
+	wschannelid?: string
 
-	// * In-house origin extensions
-	readonly originid: Cloudevent['id']
-	readonly originsource: Cloudevent['source']
-	readonly origintime: Cloudevent['time']
-	readonly origintype: Cloudevent['type']
+	// * In-house parent extensions
+	parentid?: string
+	parentrootid: string
+}
+
+export interface CloudeventProps extends Omit<CloudeventState, 'id' | 'time' | 'specversion' | 'parentid' | 'parentrootid'> {
+	specversion?: CloudeventState['specversion'] // A default is used if not input, so make optional
+
+	// * In-house parent extensions
+	parent?: CloudeventState
+}
+
+export class Cloudevent implements CloudeventState {
+	// * Cloudevent v1 fields
+	readonly data?: CloudeventState['data']
+	readonly datacontenttype?: CloudeventState['datacontenttype']
+	readonly dataschema?: CloudeventState['dataschema']
+	readonly id: CloudeventState['id']
+	readonly source: CloudeventState['source']
+	readonly specversion: CloudeventState['specversion']
+	readonly subject?: CloudeventState['subject']
+	readonly time: CloudeventState['time']
+	readonly type: CloudeventState['type']
+
+	// * In-house extensions
+	readonly actor?: CloudeventState['actor']
+	readonly wschannelid?: CloudeventState['wschannelid']
+
+	// * In-house parent extensions
+	readonly parentid?: CloudeventState['parentid']
+	readonly parentrootid: CloudeventState['parentrootid']
 
 	constructor({
 		actor,
 		data,
 		datacontenttype,
 		dataschema,
-		origin,
+		parent,
 		source,
 		specversion,
 		subject,
 		type,
 		wschannelid,
 	}: CloudeventProps) {
-		// *******
-		// * Required fields by Cloudevent v1 specification
-		const idValue = `ce_${uuidv7()}`
+		// * Cloudevent v1 required fields
 		this.id = validateAttribute({
 			name: 'id',
 			permitted: [Permitted.STRING],
-			value: idValue
+			value: `ce_${uuidv7()}`
 		})
 
-		const sourceValue = source ?? fetchNodeEnv('MILL_CLOUDEVENTS_SOURCE')
 		this.source = validateAttribute({
 			name: 'source',
 			permitted: [Permitted.STRING],
-			value: sourceValue
+			value: source ?? fetchNodeEnv('MILL_CLOUDEVENTS_SOURCE')
 		})
 
 		this.type = validateAttribute({
@@ -76,36 +81,32 @@ export class Cloudevent {
 			value: type
 		})
 
-		const specversionValue = specversion ?? '1.0'
 		this.specversion = validateAttribute({
 			name: 'specversion',
 			permitted: [Permitted.STRING],
-			value: specversionValue
+			value: specversion ?? '1.0'
 		})
 
-		const timeValue = new Date().toISOString()
 		this.time = validateAttribute({
 			name: 'time',
 			permitted: [Permitted.STRING],
-			value: timeValue
+			value: new Date().toISOString()
 		})
-		// *******
 
-		// *******
-		// * Optional fields by Cloudevent v1 specification
+		// * Cloudevent v1 optional fields
 		const dataValue = datacontenttype === undefined ? JSON.stringify(data) : data
+
 		this.data = validateAttribute({
 			name: 'data',
 			value: dataValue
 		})
 
-		const datacontenttypeValue = this.data
-			? datacontenttype ?? 'application/json'
-			: datacontenttype
 		this.datacontenttype = validateAttribute({
 			name: 'datacontenttype',
 			permitted: [Permitted.STRING, Permitted.UNDEFINED],
-			value: datacontenttypeValue
+			value: this.data
+				? datacontenttype ?? 'application/json'
+				: datacontenttype
 		})
 
 		this.dataschema = validateAttribute({
@@ -119,52 +120,31 @@ export class Cloudevent {
 			permitted: [Permitted.STRING, Permitted.UNDEFINED],
 			value: subject
 		})
-		// *******
 
-		// *******
-		// * Optional in-house extentions
+		// * In-house extensions
 		this.actor = validateAttribute({
 			name: 'actor',
 			permitted: [Permitted.STRING, Permitted.UNDEFINED],
-			value: actor,
+			value: actor
 		})
 
 		this.wschannelid = validateAttribute({
 			name: 'wschannelid',
 			permitted: [Permitted.STRING, Permitted.UNDEFINED],
-			value: wschannelid,
-		})
-		// *******
-
-		// *******
-		// * Origin in-house extentions
-		const originidValue =  origin?.originid ?? this.id
-		this.originid = validateAttribute({
-			name: 'originid',
-			permitted: [Permitted.STRING],
-			value: originidValue,
+			value: wschannelid
 		})
 
-		const originsourceValue = origin?.originsource ?? this.source
-		this.originsource = validateAttribute({
-			name: 'originsource',
-			permitted: [Permitted.STRING],
-			value: originsourceValue,
+		// * In-house parent extensions
+		this.parentid = validateAttribute({
+			name: 'parentid',
+			permitted: [Permitted.STRING, Permitted.UNDEFINED],
+			value: parent?.id
 		})
 
-		const origintimeValue = origin?.origintime ?? this.time
-		this.origintime = validateAttribute({
-			name: 'origintime',
+		this.parentrootid = validateAttribute({
+			name: 'parentrootid',
 			permitted: [Permitted.STRING],
-			value: origintimeValue,
+			value: parent?.parentrootid ?? this.id
 		})
-
-		const origintypeValue = origin?.origintype ?? this.type
-		this.origintype = validateAttribute({
-			name: 'origintype',
-			permitted: [Permitted.STRING],
-			value: origintypeValue,
-		})
-		// *******
 	}
 }

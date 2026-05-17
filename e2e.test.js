@@ -1,21 +1,28 @@
-import { Cloudevent } from './dist/bundle-node/cloudevents.esm.js'
+import { Cloudevent } from './dist/index.js'
 
-const cloudevent = new Cloudevent({
+const root = new Cloudevent({
 	data: { some: 'payload' },
 	source: 'https://github.com/1mill/cloudevents',
 	type: 'cmd.do-this-command.v0',
 })
+console.log('root: ', root)
 
-console.log(cloudevent)
+const parent = new Cloudevent({
+	data: { isparent: 'yes' },
+	parent: root,
+	source: 'https://github.com/1mill/cloudevents',
+	type: 'cmd.do-this-parent-side-effect.v0',
+})
 
-const enrichedCloudevent = new Cloudevent({
+console.log('parent: ', parent)
+
+const cloudevent = new Cloudevent({
 	actor: 'user#1234',
 	data: { new: 'payload', value: true },
-	origin: cloudevent,
+	parent,
 	source: 'https://www.erikekberg.com/',
 	subject: 'project#4321',
 	type: 'fct.this-thing-happened.v0',
 	wschannelid: 'some-prefix:my-resource-name#id=12345',
 })
-
-console.log(enrichedCloudevent)
+console.log('cloudevent: ', cloudevent)
