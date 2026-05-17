@@ -3,7 +3,7 @@
 		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true,
 		"module": "ESNext",
-		"moduleResolution": "Node",
+		"moduleResolution": "bundler",
 		"noImplicitAny": true,
 		"skipLibCheck": true,
 		"strict": true,

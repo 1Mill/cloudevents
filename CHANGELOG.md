@@ -1,5 +1,9 @@
 # Changelog for @1mill/cloudevents
 
+## 6.0.2
+
+* Change `tsconfig.json` `moduleResolution` value from depricated `'Node'` to `'bundler'`.
+
 ## 6.0.1
 
 * Update `node` build environment from `22` to `24`.
