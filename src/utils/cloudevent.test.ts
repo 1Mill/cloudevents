@@ -1,11 +1,6 @@
-import chai, { expect } from 'chai'
-import chaiIso8601 from 'chai-iso8601'
-import chaiSubset from 'chai-subset'
 import { Cloudevent } from './cloudevent.js'
 import { SinonFakeTimers, useFakeTimers } from 'sinon'
-
-chai.use(chaiIso8601)
-chai.use(chaiSubset)
+import { expect } from 'chai'
 
 describe('new Cloudevent', () => {
 	let clock: SinonFakeTimers
@@ -18,7 +13,7 @@ describe('new Cloudevent', () => {
 		clock.restore()
 	})
 
-	describe('when the cloudevent is not the origin', () => {
+	describe('when the cloudevent is the root', () => {
 		it('returns the expected cloudevent', () => {
 			clock.tick(987654321) // * Jump into the future
 
@@ -29,19 +24,17 @@ describe('new Cloudevent', () => {
 			const time = new Date().toISOString()
 			const type = 'some-type'
 
-			const cloudevent = new Cloudevent({ actor, data, datacontenttype, source, type })
+			const {id, ...partialCloudevent} = new Cloudevent({ actor, data, datacontenttype, source, type })
 
 			clock.tick(123456789) // * Jump into the future
 
-			expect(cloudevent).to.containSubset({
+			expect(partialCloudevent).to.deep.eq({
 				actor,
 				data,
 				datacontenttype,
 				dataschema: undefined,
-				originid: cloudevent.id,
-				originsource: source,
-				origintime: time,
-				origintype: type,
+				parentid: undefined,
+				parentrootid: id,
 				source,
 				specversion: '1.0',
 				subject: undefined,
@@ -52,14 +45,20 @@ describe('new Cloudevent', () => {
 		})
 	})
 
-	describe('when the cloudevent is the origin', () => {
+	describe('when the cloudevent is not the root', () => {
 		it('returns the expected cloudevent', () => {
 			clock.tick(987654321) // * Jump into the future
 
-			const origin = new Cloudevent({
-				actor: 'some-origin-actor',
-				source: 'some-origin-source',
-				type: 'some-origin-type',
+			const root = new Cloudevent({
+				actor: 'some-root-actor',
+				source: 'some-root-source',
+				type: 'some-root-type',
+			})
+
+			const parent = new Cloudevent({
+				parent: root,
+				source: 'some-parent-source',
+				type: 'some-parent-type',
 			})
 
 			clock.tick(123456789) // * Jump into the future
@@ -71,19 +70,17 @@ describe('new Cloudevent', () => {
 			const type = 'some-enrichment-type'
 			const wschannelid = 'some-wschannel-id'
 
-			const cloudevent = new Cloudevent({ actor, data, origin, source, type, wschannelid })
+			const {id, ...partialCloudevent} = new Cloudevent({ actor, data, parent, source, type, wschannelid })
 
 			clock.tick(987654321) // * Jump into the future
 
-			expect(cloudevent).to.containSubset({
+			expect(partialCloudevent).to.deep.eq({
 				actor,
 				data: JSON.stringify(data),
 				datacontenttype: 'application/json',
 				dataschema: undefined,
-				originid: origin.id,
-				originsource: origin.source,
-				origintime: origin.time,
-				origintype: origin.type,
+				parentid: parent.id,
+				parentrootid: root.id,
 				source,
 				specversion: '1.0',
 				subject: undefined,

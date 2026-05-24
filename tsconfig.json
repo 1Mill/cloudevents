@@ -2,14 +2,24 @@
 	"compilerOptions": {
 		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true,
-		"module": "ESNext",
+		"module": "esnext",
 		"moduleResolution": "bundler",
-		"noImplicitAny": true,
 		"skipLibCheck": true,
 		"strict": true,
-		"target": "ESNext",
+		"target": "esnext",
+		"types": [
+			"mocha",
+			"node"
+		]
 	},
-	"exclude": ["./src/**/*.test.*"],
-	"include": ["./src"],
-	"ts-node": { "esm": true, "files": true }
+	"exclude": [
+		"./dist"
+	],
+	"include": [
+		"./src"
+	],
+	"ts-node": {
+		"esm": true,
+		"files": true
+	}
 }

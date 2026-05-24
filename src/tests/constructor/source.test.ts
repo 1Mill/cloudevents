@@ -6,12 +6,12 @@ describe('cloudevent#source', () => {
 	const sandbox = createSandbox()
 	let params: CloudeventProps
 
-	beforeEach(() => { params = { type: 'some-type' } })
+	beforeEach(() => { params = { type: 'some-type' } as any }) // ! Use `as any` to silence expected TypeScript error
 
 	afterEach(() => { sandbox.restore() })
 
 	describe('when #source is not input', () => {
-		beforeEach(() => { params.source = undefined })
+		beforeEach(() => { params.source = undefined as any }) // ! Use `as any` to silence expected TypeScript error
 
 		describe('when process.env.MILL_CLOUDEVENTS_SOURCE is not input', () => {
 			it('throws the proper error', () => {

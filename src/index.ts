@@ -1,1 +1,1 @@
-export { Cloudevent, CloudeventProps } from './utils/cloudevent.js'
+export { Cloudevent, type CloudeventProps, type CloudeventState } from './utils/cloudevent.js'

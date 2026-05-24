@@ -1,9 +1,9 @@
-import chai, { expect } from 'chai'
 import sinon from 'sinon'
 import sinonChai from 'sinon-chai'
 import { Permitted, validateAttribute } from './validateAttribute.js'
+import { expect, use } from 'chai'
 
-chai.use(sinonChai)
+use(sinonChai)
 
 describe('validateAttribute', () => {
 	const name = 'some-name'

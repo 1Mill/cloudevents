@@ -1,8 +1,5 @@
-import chai, { expect } from 'chai'
-import chaiString from 'chai-string'
 import { Cloudevent, CloudeventProps } from '../../index.js'
-
-chai.use(chaiString)
+import { expect } from 'chai'
 
 describe('cloudevent#id', () => {
 	let params: CloudeventProps
@@ -16,7 +13,8 @@ describe('cloudevent#id', () => {
 
 	it('returns with a "ce_" prefix', () => {
 		const { id } = new Cloudevent(params)
-		expect(id).to.startWith('ce_')
+		const prefix = id.slice(0, 3)
+		expect(prefix).to.eq('ce_')
 	})
 
 	it('returns with a length of 39', () => {
