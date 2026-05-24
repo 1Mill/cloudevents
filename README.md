@@ -111,7 +111,7 @@ The `Cloudevent` class represents a fully-hydrated CloudEvent instance. Internal
 | time            |          | `string`     | Auto-generated ISO timestamp          | Timestamp generated when the event instance is created                                                                          |
 | type            | yes      | `string`     |                                       | Event type identifier                                                                                                           |
 | wschannelid     |          | `string`     |                                       | WebSocket channel identifier in which the event should be send to                                                               |
-| --------------- | -------- | ------------ | ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| ---             | ---      | ---          | ---                                   | ---                                                                                                                             |
 | parent          |          | `Cloudevent` |                                       | Helper used to automatically derive `parentid` and `parentrootid`                                                               |
 
 ## Release new version
